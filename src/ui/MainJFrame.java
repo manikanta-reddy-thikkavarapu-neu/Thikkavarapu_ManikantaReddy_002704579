@@ -21,8 +21,13 @@ public class MainJFrame extends javax.swing.JFrame {
     public MainJFrame() {
         initComponents();
         history = new EmployeeProfileHistory();
+        
         CreateEmployeeProfilePanel createEmployeeProfilePanel = new CreateEmployeeProfilePanel(history);
         splitPane.setLeftComponent(createEmployeeProfilePanel);
+        
+        ViewEmployeeProfilePanel viewEmployeeProfilePanel = new ViewEmployeeProfilePanel(history);
+        splitPane.setRightComponent(viewEmployeeProfilePanel);
+        
     }
 
     /**
