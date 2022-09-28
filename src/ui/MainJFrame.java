@@ -4,6 +4,8 @@
  */
 package ui;
 
+import model.EmployeeProfileHistory;
+
 /**
  *
  * @author tmani
@@ -13,9 +15,13 @@ public class MainJFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainJFrame
      */
+    
+    EmployeeProfileHistory history;
+    
     public MainJFrame() {
         initComponents();
-        CreateEmployeeProfilePanel createEmployeeProfilePanel = new CreateEmployeeProfilePanel();
+        history = new EmployeeProfileHistory();
+        CreateEmployeeProfilePanel createEmployeeProfilePanel = new CreateEmployeeProfilePanel(history);
         splitPane.setLeftComponent(createEmployeeProfilePanel);
     }
 

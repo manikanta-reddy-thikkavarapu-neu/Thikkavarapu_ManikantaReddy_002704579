@@ -26,4 +26,10 @@ public class EmployeeProfileHistory {
         this.history = history;
     }
     
+    public EmployeeProfile addNewEmployeeProfile() {
+        EmployeeProfile employeeProfile = new EmployeeProfile();
+        history.add(employeeProfile);
+        return employeeProfile;
+    }
+    
 }
