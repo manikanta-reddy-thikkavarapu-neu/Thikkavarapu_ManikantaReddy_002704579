@@ -101,7 +101,7 @@ public class ViewEmployeeProfilePanel extends javax.swing.JPanel {
     public void populateEmployeeProfileTable() {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
-        
+       
         for(EmployeeProfile ep: history.getHistory()) {
             Object[] row = new Object[10];
             row[0] = ep.getName();

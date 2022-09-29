@@ -20,6 +20,7 @@ public class CreateEmployeeProfilePanel extends javax.swing.JPanel {
     
     EmployeeProfileHistory history;
     
+    
     public CreateEmployeeProfilePanel(EmployeeProfileHistory history) {
         initComponents();
         this.history = history;
@@ -224,7 +225,7 @@ public class CreateEmployeeProfilePanel extends javax.swing.JPanel {
         int cellPhoneNumber = Integer.parseInt(txtCellPhoneNumber.getText());
         String emailAddress = txtEmailAddress.getText();
         
-        EmployeeProfile ep = history.addNewEmployeeProfile();
+        EmployeeProfile ep = new EmployeeProfile();
         ep.setName(name);
         ep.setEmployeeId(employeeId);
         ep.setAge(age);
@@ -235,6 +236,7 @@ public class CreateEmployeeProfilePanel extends javax.swing.JPanel {
         ep.setPositionTitle(positionTitle);
         ep.setCellPhoneNumber(cellPhoneNumber);
         ep.setEmailAddress(emailAddress);
+        history.addNewEmployeeProfile(ep);
         
         JOptionPane.showMessageDialog(this, "New employee profile created");
         
@@ -249,8 +251,11 @@ public class CreateEmployeeProfilePanel extends javax.swing.JPanel {
         txtCellPhoneNumber.setText("");
         txtEmailAddress.setText("");
         
+        MainJFrame.refreshEmployeeProfileHistory(history);
+
     }//GEN-LAST:event_createActionPerformed
 
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton create;

@@ -21,15 +21,15 @@ public class MainJFrame extends javax.swing.JFrame {
     public MainJFrame() {
         initComponents();
         history = new EmployeeProfileHistory();
+        splitPane1 = splitPane;
         
         CreateEmployeeProfilePanel createEmployeeProfilePanel = new CreateEmployeeProfilePanel(history);
-        splitPane.setLeftComponent(createEmployeeProfilePanel);
+        splitPane1.setLeftComponent(createEmployeeProfilePanel);
         
         ViewEmployeeProfilePanel viewEmployeeProfilePanel = new ViewEmployeeProfilePanel(history);
-        splitPane.setRightComponent(viewEmployeeProfilePanel);
-        
+        splitPane1.setRightComponent(viewEmployeeProfilePanel);   
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -119,10 +119,16 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
     }
-
+    
+    public static void refreshEmployeeProfileHistory(EmployeeProfileHistory eph){
+        splitPane1.setRightComponent(new ViewEmployeeProfilePanel(eph) );
+    }
+    
+    private static javax.swing.JSplitPane splitPane1;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel employeeControlPanel;
     private javax.swing.JPanel employeeDataHistoryPanel;
     private javax.swing.JSplitPane splitPane;
     // End of variables declaration//GEN-END:variables
 }
+

@@ -12,24 +12,22 @@ import java.util.ArrayList;
  */
 public class EmployeeProfileHistory {
     
-    private ArrayList<EmployeeProfile> history;
+    private ArrayList<EmployeeProfile> employeeProfileHistoryList;
     
     public EmployeeProfileHistory() {
-    this.history = new ArrayList<EmployeeProfile>();
+    this.employeeProfileHistoryList = new ArrayList<EmployeeProfile>();
 }
 
     public ArrayList<EmployeeProfile> getHistory() {
-        return history;
+        return employeeProfileHistoryList;
     }
 
     public void setHistory(ArrayList<EmployeeProfile> history) {
-        this.history = history;
+        this.employeeProfileHistoryList = history;
     }
     
-    public EmployeeProfile addNewEmployeeProfile() {
-        EmployeeProfile employeeProfile = new EmployeeProfile();
-        history.add(employeeProfile);
-        return employeeProfile;
+    public void addNewEmployeeProfile(EmployeeProfile ep) {
+        this.employeeProfileHistoryList.add(ep);
     }
     
 }
