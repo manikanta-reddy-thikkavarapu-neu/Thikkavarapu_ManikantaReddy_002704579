@@ -36,21 +36,11 @@
                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <Component id="create" min="-2" max="-2" attributes="0"/>
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="txtEmailAddress" min="-2" pref="150" max="-2" attributes="0"/>
-                  </Group>
                   <Group type="102" attributes="0">
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="update" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="delete" min="-2" max="-2" attributes="0"/>
-                          </Group>
                           <Component id="txtName" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
                           <Component id="txtEmployeeId" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
                           <Component id="txtAge" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
@@ -60,6 +50,17 @@
                           <Component id="txtTeamInfo" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
                           <Component id="txtPositionTitle" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
                           <Component id="txtCellPhoneNumber" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="txtEmailAddress" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="create" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="update" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
               </Group>
@@ -127,7 +128,6 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="create" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="update" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="delete" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="109" max="32767" attributes="0"/>
           </Group>
@@ -216,11 +216,6 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updateActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="delete">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Delete"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel10">
       <Properties>

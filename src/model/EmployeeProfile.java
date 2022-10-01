@@ -101,4 +101,9 @@ public class EmployeeProfile {
         this.emailAddress = emailAddress;
     }
     
+    @Override
+    public String toString() {
+        return name;
+    }
+    
 }

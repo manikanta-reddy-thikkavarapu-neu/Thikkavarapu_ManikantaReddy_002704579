@@ -30,4 +30,8 @@ public class EmployeeProfileHistory {
         this.employeeProfileHistoryList.add(ep);
     }
     
+    public void deleteEmployeeProfile(EmployeeProfile ep) {
+        this.employeeProfileHistoryList.remove(ep);
+    }
+    
 }

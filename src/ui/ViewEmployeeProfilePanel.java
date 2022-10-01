@@ -4,6 +4,7 @@
  */
 package ui;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.EmployeeProfile;
 import model.EmployeeProfileHistory;
@@ -38,6 +39,8 @@ public class ViewEmployeeProfilePanel extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        delete = new javax.swing.JButton();
+        view = new javax.swing.JButton();
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("View Employee Profile History");
@@ -70,6 +73,20 @@ public class ViewEmployeeProfilePanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jTable1);
 
+        delete.setText("Delete");
+        delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteActionPerformed(evt);
+            }
+        });
+
+        view.setText("View");
+        view.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -79,6 +96,12 @@ public class ViewEmployeeProfilePanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(view)
+                .addGap(18, 18, 18)
+                .addComponent(delete)
+                .addGap(200, 200, 200))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -87,24 +110,56 @@ public class ViewEmployeeProfilePanel extends javax.swing.JPanel {
                 .addComponent(jLabel9)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(333, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(delete)
+                    .addComponent(view))
+                .addContainerGap(292, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+        int selectedRowIndex = jTable1.getSelectedRow();
+        if(selectedRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a row to delete.");
+            return;
+        }
+       DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+       EmployeeProfile selectedEmployeeProfile = (EmployeeProfile) model.getValueAt(selectedRowIndex, 0);
+       history.deleteEmployeeProfile(selectedEmployeeProfile);
+       JOptionPane.showMessageDialog(this, "Employee profile deleted");
+       populateEmployeeProfileTable();
+       MainJFrame.refreshCreateEmployeeProfileHistory(history);
+    }//GEN-LAST:event_deleteActionPerformed
+
+    private void viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewActionPerformed
+        int selectedRowIndex = jTable1.getSelectedRow();
+        if(selectedRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a row to view.");
+            return;
+        }
+       DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+       EmployeeProfile selectedEmployeeProfile = (EmployeeProfile) model.getValueAt(selectedRowIndex, 0);
+       
+       MainJFrame.setCreateEmployeeProfilePanel(selectedEmployeeProfile);
+    }//GEN-LAST:event_viewActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton delete;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JButton view;
     // End of variables declaration//GEN-END:variables
 
-    public void populateEmployeeProfileTable() {
+    private void populateEmployeeProfileTable() {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
        
         for(EmployeeProfile ep: history.getHistory()) {
             Object[] row = new Object[10];
-            row[0] = ep.getName();
+            row[0] = ep;
             row[1] = ep.getEmployeeId();
             row[2] = ep.getAge();
             row[3] = ep.getGender();

@@ -4,6 +4,7 @@
  */
 package ui;
 
+import model.EmployeeProfile;
 import model.EmployeeProfileHistory;
 
 /**
@@ -120,8 +121,16 @@ public class MainJFrame extends javax.swing.JFrame {
         });
     }
     
-    public static void refreshEmployeeProfileHistory(EmployeeProfileHistory eph){
+    public static void refreshViewEmployeeProfileHistory(EmployeeProfileHistory eph){
         splitPane1.setRightComponent(new ViewEmployeeProfilePanel(eph) );
+    }
+    
+    public static void refreshCreateEmployeeProfileHistory(EmployeeProfileHistory eph){
+        splitPane1.setLeftComponent(new CreateEmployeeProfilePanel(eph) );
+    }
+    
+    public static void setCreateEmployeeProfilePanel(EmployeeProfile ep) {
+        splitPane1.setLeftComponent(new CreateEmployeeProfilePanel(ep));
     }
     
     private static javax.swing.JSplitPane splitPane1;

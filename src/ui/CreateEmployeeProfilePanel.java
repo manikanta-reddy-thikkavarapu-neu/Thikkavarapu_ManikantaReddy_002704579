@@ -19,11 +19,31 @@ public class CreateEmployeeProfilePanel extends javax.swing.JPanel {
      */
     
     EmployeeProfileHistory history;
+    EmployeeProfile employee;
     
     
     public CreateEmployeeProfilePanel(EmployeeProfileHistory history) {
         initComponents();
         this.history = history;
+    }
+    
+    public CreateEmployeeProfilePanel(EmployeeProfile employee) {
+        initComponents();
+        this.employee = employee;
+        setCreateEmployeeProfilePanel();
+    }
+    
+    private void setCreateEmployeeProfilePanel () {
+        txtName.setText(employee.getName());
+        txtEmployeeId.setText(employee.getEmployeeId().toString());
+        txtAge.setText(employee.getAge().toString());
+        txtGender.setText(employee.getGender());
+        txtStartDate.setText(employee.getStartDate());
+        txtLevel.setText(employee.getLevel());
+        txtTeamInfo.setText(employee.getTeamInfo());
+        txtPositionTitle.setText(employee.getPositionTitle());
+        txtCellPhoneNumber.setText(employee.getCellPhoneNumber().toString());
+        txtEmailAddress.setText(employee.getEmailAddress());
     }
 
     /**
@@ -55,7 +75,6 @@ public class CreateEmployeeProfilePanel extends javax.swing.JPanel {
         txtPositionTitle = new javax.swing.JTextField();
         create = new javax.swing.JButton();
         update = new javax.swing.JButton();
-        delete = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         txtCellPhoneNumber = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
@@ -103,8 +122,6 @@ public class CreateEmployeeProfilePanel extends javax.swing.JPanel {
             }
         });
 
-        delete.setText("Delete");
-
         jLabel10.setText("Cell Phone Numer");
 
         jLabel11.setText("Email Address");
@@ -125,19 +142,11 @@ public class CreateEmployeeProfilePanel extends javax.swing.JPanel {
                     .addComponent(jLabel4)
                     .addComponent(jLabel3)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel1)
-                    .addComponent(create))
+                    .addComponent(jLabel1))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(txtEmailAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(update)
-                                .addGap(18, 18, 18)
-                                .addComponent(delete))
                             .addComponent(txtName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtEmployeeId, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtAge, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -146,7 +155,15 @@ public class CreateEmployeeProfilePanel extends javax.swing.JPanel {
                             .addComponent(txtLevel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtTeamInfo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtPositionTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCellPhoneNumber, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtCellPhoneNumber, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtEmailAddress, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(create)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(update)))))
                 .addContainerGap(254, Short.MAX_VALUE))
             .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -198,8 +215,7 @@ public class CreateEmployeeProfilePanel extends javax.swing.JPanel {
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(create)
-                    .addComponent(update)
-                    .addComponent(delete))
+                    .addComponent(update))
                 .addContainerGap(109, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -251,7 +267,7 @@ public class CreateEmployeeProfilePanel extends javax.swing.JPanel {
         txtCellPhoneNumber.setText("");
         txtEmailAddress.setText("");
         
-        MainJFrame.refreshEmployeeProfileHistory(history);
+        MainJFrame.refreshViewEmployeeProfileHistory(history);
 
     }//GEN-LAST:event_createActionPerformed
 
@@ -259,7 +275,6 @@ public class CreateEmployeeProfilePanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton create;
-    private javax.swing.JButton delete;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
