@@ -48,4 +48,12 @@ public class EmployeeProfileHistory {
         this.employeeProfileHistoryList.remove(ep);
     }
     
+    public void addNewSearchEmployeeProfile(EmployeeProfile ep) {
+        this.searchEmployeeProfileHistoryList.add(ep);
+    }
+    
+    public void clearSearchEmployeeProfileList() {
+        this.searchEmployeeProfileHistoryList.clear();
+    }
+    
 }

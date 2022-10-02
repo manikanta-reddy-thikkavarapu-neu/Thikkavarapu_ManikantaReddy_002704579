@@ -4,6 +4,7 @@
  */
 package ui;
 
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.EmployeeProfile;
@@ -18,13 +19,12 @@ public class ViewEmployeeProfilePanel extends javax.swing.JPanel {
     /**
      * Creates new form ViewEmployeeProfilePanel
      */
-    
     EmployeeProfileHistory history;
-    
+
     public ViewEmployeeProfilePanel(EmployeeProfileHistory history) {
         initComponents();
         this.history = history;
-        populateEmployeeProfileTable();
+        populateEmployeeProfileTable("normal");
     }
 
     /**
@@ -141,40 +141,51 @@ public class ViewEmployeeProfilePanel extends javax.swing.JPanel {
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
         int selectedRowIndex = jTable1.getSelectedRow();
-        if(selectedRowIndex < 0) {
+        if (selectedRowIndex < 0) {
             JOptionPane.showMessageDialog(this, "Please select a row to delete.");
             return;
         }
-       DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-       EmployeeProfile selectedEmployeeProfile = (EmployeeProfile) model.getValueAt(selectedRowIndex, 0);
-       history.deleteEmployeeProfile(selectedEmployeeProfile);
-       JOptionPane.showMessageDialog(this, "Employee profile deleted");
-       populateEmployeeProfileTable();
-       MainJFrame.refreshCreateEmployeeProfileHistory(history);
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        EmployeeProfile selectedEmployeeProfile = (EmployeeProfile) model.getValueAt(selectedRowIndex, 0);
+        history.deleteEmployeeProfile(selectedEmployeeProfile);
+        JOptionPane.showMessageDialog(this, "Employee profile deleted");
+        populateEmployeeProfileTable("normal");
+        MainJFrame.refreshCreateEmployeeProfileHistory(history);
     }//GEN-LAST:event_deleteActionPerformed
 
     private void viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewActionPerformed
         int selectedRowIndex = jTable1.getSelectedRow();
-        if(selectedRowIndex < 0) {
+        if (selectedRowIndex < 0) {
             JOptionPane.showMessageDialog(this, "Please select a row to view.");
             return;
         }
-       DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-       EmployeeProfile selectedEmployeeProfile = (EmployeeProfile) model.getValueAt(selectedRowIndex, 0);
-       
-       MainJFrame.setCreateEmployeeProfilePanel(history, selectedEmployeeProfile);
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        EmployeeProfile selectedEmployeeProfile = (EmployeeProfile) model.getValueAt(selectedRowIndex, 0);
+
+        MainJFrame.setCreateEmployeeProfilePanel(history, selectedEmployeeProfile);
     }//GEN-LAST:event_viewActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
-        
-        if(jTable1.getRowCount() == 0) {
+
+        if (jTable1.getRowCount() == 0) {
             JOptionPane.showMessageDialog(this, "No employee profile details to search.");
-        }
-        else if(searchTextField.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter the search text.");
-        }
-        else {
-            
+        } else if (searchTextField.getText().isEmpty()) {
+            populateEmployeeProfileTable("normal");
+        } else {
+            history.clearSearchEmployeeProfileList();
+            boolean notFound = true;
+            for (EmployeeProfile ep : history.getEmployeeProfileHistoryList()) {
+                if (ep.getName().toLowerCase().contains(searchTextField.getText().toLowerCase()) || ep.getEmployeeId().toString().toLowerCase().contains(searchTextField.getText().toLowerCase()) || ep.getAge().toString().toLowerCase().contains(searchTextField.getText().toLowerCase()) || ep.getGender().toLowerCase().contains(searchTextField.getText().toLowerCase()) || ep.getStartDate().toLowerCase().contains(searchTextField.getText().toLowerCase()) || ep.getLevel().toLowerCase().contains(searchTextField.getText().toLowerCase()) || ep.getTeamInfo().toLowerCase().contains(searchTextField.getText().toLowerCase())|| ep.getPositionTitle().toLowerCase().contains(searchTextField.getText().toLowerCase()) || ep.getCellPhoneNumber().toString().toLowerCase().contains(searchTextField.getText().toLowerCase()) || ep.getEmailAddress().toLowerCase().contains(searchTextField.getText().toLowerCase())) {
+                    history.addNewSearchEmployeeProfile(ep);
+                    notFound = false;
+                }
+            }
+            if(notFound) {
+                JOptionPane.showMessageDialog(this, "No employee profile data available with the search text : " + searchTextField.getText());
+            }
+            else {
+                populateEmployeeProfileTable("search");
+            }
         }
     }//GEN-LAST:event_searchButtonActionPerformed
 
@@ -189,11 +200,20 @@ public class ViewEmployeeProfilePanel extends javax.swing.JPanel {
     private javax.swing.JButton view;
     // End of variables declaration//GEN-END:variables
 
-    private void populateEmployeeProfileTable() {
+    private void populateEmployeeProfileTable(String searchOrNormal) {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
-       
-        for(EmployeeProfile ep: history.getEmployeeProfileHistoryList()) {
+
+       ArrayList<EmployeeProfile> employeeIterateObj;
+        
+        if(searchOrNormal.equals("normal")) {
+            employeeIterateObj = history.getEmployeeProfileHistoryList();
+        }
+        else {
+            employeeIterateObj = history.getSearchEmployeeProfileHistoryList();
+        }
+        
+        for (EmployeeProfile ep : employeeIterateObj) {
             Object[] row = new Object[10];
             row[0] = ep;
             row[1] = ep.getEmployeeId();
