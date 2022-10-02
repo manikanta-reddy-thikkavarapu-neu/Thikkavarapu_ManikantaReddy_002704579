@@ -9,7 +9,7 @@ package model;
  * @author tmani
  */
 public class EmployeeProfile {
-    
+
     private String name;
     private Integer employeeId;
     private Integer age;
@@ -20,6 +20,7 @@ public class EmployeeProfile {
     private String positionTitle;
     private Integer cellPhoneNumber;
     private String emailAddress;
+    private String photoPath;
 
     public String getName() {
         return name;
@@ -100,10 +101,18 @@ public class EmployeeProfile {
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
     }
-    
+
+    public String getPhotoPath() {
+        return photoPath;
+    }
+
+    public void setPhotoPath(String photoPath) {
+        this.photoPath = photoPath;
+    }
+
     @Override
     public String toString() {
         return name;
     }
-    
+
 }
