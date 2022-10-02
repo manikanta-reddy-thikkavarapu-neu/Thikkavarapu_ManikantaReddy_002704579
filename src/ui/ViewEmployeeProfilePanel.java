@@ -141,7 +141,7 @@ public class ViewEmployeeProfilePanel extends javax.swing.JPanel {
        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
        EmployeeProfile selectedEmployeeProfile = (EmployeeProfile) model.getValueAt(selectedRowIndex, 0);
        
-       MainJFrame.setCreateEmployeeProfilePanel(selectedEmployeeProfile);
+       MainJFrame.setCreateEmployeeProfilePanel(history, selectedEmployeeProfile);
     }//GEN-LAST:event_viewActionPerformed
 
 

@@ -129,8 +129,8 @@ public class MainJFrame extends javax.swing.JFrame {
         splitPane1.setLeftComponent(new CreateEmployeeProfilePanel(eph) );
     }
     
-    public static void setCreateEmployeeProfilePanel(EmployeeProfile ep) {
-        splitPane1.setLeftComponent(new CreateEmployeeProfilePanel(ep));
+    public static void setCreateEmployeeProfilePanel(EmployeeProfileHistory eph, EmployeeProfile ep) {
+        splitPane1.setLeftComponent(new CreateEmployeeProfilePanel(eph, ep));
     }
     
     private static javax.swing.JSplitPane splitPane1;

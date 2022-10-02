@@ -27,9 +27,10 @@ public class CreateEmployeeProfilePanel extends javax.swing.JPanel {
         this.history = history;
     }
     
-    public CreateEmployeeProfilePanel(EmployeeProfile employee) {
+    public CreateEmployeeProfilePanel(EmployeeProfileHistory history, EmployeeProfile employee) {
         initComponents();
         this.employee = employee;
+        this.history = history;
         setCreateEmployeeProfilePanel();
     }
     
@@ -44,6 +45,60 @@ public class CreateEmployeeProfilePanel extends javax.swing.JPanel {
         txtPositionTitle.setText(employee.getPositionTitle());
         txtCellPhoneNumber.setText(employee.getCellPhoneNumber().toString());
         txtEmailAddress.setText(employee.getEmailAddress());
+    }
+    
+    private boolean employeeProfileExistence () {
+        int employeeId = Integer.parseInt(txtEmployeeId.getText());
+        
+        boolean proceed = true;
+        
+        for(EmployeeProfile ep: history.getHistory()) {
+            if(employeeId == ep.getEmployeeId()) {
+                proceed = false;
+                break;
+            }
+        }
+        return proceed;
+    }
+    
+    private EmployeeProfile setEmployeeProfile () {
+        int employeeId = Integer.parseInt(txtEmployeeId.getText());
+        String name = txtName.getText();
+        int age = Integer.parseInt(txtAge.getText());
+        String gender = txtGender.getText();
+        String startDate = txtStartDate.getText();
+        String level = txtLevel.getText();
+        String teamInfo = txtTeamInfo.getText();
+        String positionTitle = txtPositionTitle.getText();
+        int cellPhoneNumber = Integer.parseInt(txtCellPhoneNumber.getText());
+        String emailAddress = txtEmailAddress.getText();
+        
+        EmployeeProfile ep = new EmployeeProfile();
+        ep.setName(name);
+        ep.setEmployeeId(employeeId);
+        ep.setAge(age);
+        ep.setGender(gender);
+        ep.setStartDate(startDate);
+        ep.setLevel(level);
+        ep.setTeamInfo(teamInfo);
+        ep.setPositionTitle(positionTitle);
+        ep.setCellPhoneNumber(cellPhoneNumber);
+        ep.setEmailAddress(emailAddress);
+        
+        return ep;
+    }
+    
+    private void resetCreateEmployeeProfileFields() {
+        txtName.setText("");
+        txtEmployeeId.setText("");
+        txtAge.setText("");
+        txtGender.setText("");
+        txtStartDate.setText("");
+        txtLevel.setText("");
+        txtTeamInfo.setText("");
+        txtPositionTitle.setText("");
+        txtCellPhoneNumber.setText("");
+        txtEmailAddress.setText("");
     }
 
     /**
@@ -221,7 +276,8 @@ public class CreateEmployeeProfilePanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
-        // TODO add your handling code here:
+       
+       
     }//GEN-LAST:event_updateActionPerformed
 
     private void txtStartDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStartDateActionPerformed
@@ -229,45 +285,21 @@ public class CreateEmployeeProfilePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtStartDateActionPerformed
 
     private void createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createActionPerformed
-        // TODO add your handling code here:
-        String name = txtName.getText();
-        int employeeId = Integer.parseInt(txtEmployeeId.getText());
-        int age = Integer.parseInt(txtAge.getText());
-        String gender = txtGender.getText();
-        String startDate = txtStartDate.getText();
-        String level = txtLevel.getText();
-        String teamInfo = txtTeamInfo.getText();
-        String positionTitle = txtPositionTitle.getText();
-        int cellPhoneNumber = Integer.parseInt(txtCellPhoneNumber.getText());
-        String emailAddress = txtEmailAddress.getText();
         
-        EmployeeProfile ep = new EmployeeProfile();
-        ep.setName(name);
-        ep.setEmployeeId(employeeId);
-        ep.setAge(age);
-        ep.setGender(gender);
-        ep.setStartDate(startDate);
-        ep.setLevel(level);
-        ep.setTeamInfo(teamInfo);
-        ep.setPositionTitle(positionTitle);
-        ep.setCellPhoneNumber(cellPhoneNumber);
-        ep.setEmailAddress(emailAddress);
-        history.addNewEmployeeProfile(ep);
+        int employeeId = Integer.parseInt(txtEmployeeId.getText());
+        if(employeeProfileExistence()) {
+        
+        history.addNewEmployeeProfile(setEmployeeProfile());
         
         JOptionPane.showMessageDialog(this, "New employee profile created");
         
-        txtName.setText("");
-        txtEmployeeId.setText("");
-        txtAge.setText("");
-        txtGender.setText("");
-        txtStartDate.setText("");
-        txtLevel.setText("");
-        txtTeamInfo.setText("");
-        txtPositionTitle.setText("");
-        txtCellPhoneNumber.setText("");
-        txtEmailAddress.setText("");
+        resetCreateEmployeeProfileFields();
         
-        MainJFrame.refreshViewEmployeeProfileHistory(history);
+        MainJFrame.refreshViewEmployeeProfileHistory(history);   
+        }
+        else {
+            JOptionPane.showMessageDialog(this, "Employee profile already exists with the employee id : " + employeeId);
+        }
 
     }//GEN-LAST:event_createActionPerformed
 
