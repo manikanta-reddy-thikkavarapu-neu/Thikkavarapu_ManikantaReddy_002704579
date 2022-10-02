@@ -50,15 +50,15 @@ public class CreateEmployeeProfilePanel extends javax.swing.JPanel {
     private boolean employeeProfileExistence () {
         int employeeId = Integer.parseInt(txtEmployeeId.getText());
         
-        boolean proceed = true;
+        boolean exist = false;
         
-        for(EmployeeProfile ep: history.getHistory()) {
+        for(EmployeeProfile ep: history.getEmployeeProfileHistoryList()) {
             if(employeeId == ep.getEmployeeId()) {
-                proceed = false;
+                exist = true;
                 break;
             }
         }
-        return proceed;
+        return exist;
     }
     
     private EmployeeProfile setEmployeeProfile () {
@@ -277,7 +277,26 @@ public class CreateEmployeeProfilePanel extends javax.swing.JPanel {
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
        
-       
+        int employeeId = Integer.parseInt(txtEmployeeId.getText());
+        if(!employeeProfileExistence()) {
+           JOptionPane.showMessageDialog(this, "You can't update the employee profile since employee with employee id : " + employeeId + " doesn't exist");
+        }
+        else {
+            EmployeeProfile updatedEmployeeProfileData = setEmployeeProfile();
+            int index = 0;
+            for(EmployeeProfile ep: history.getEmployeeProfileHistoryList()) {
+                if(employeeId == ep.getEmployeeId()) {
+                    history.updateExistingEmployeeProfile(updatedEmployeeProfileData, index);
+                    break;
+                }
+                index++;
+            }
+             JOptionPane.showMessageDialog(this, "Existing employee profile with employee id : " + employeeId + " updated");
+        
+             resetCreateEmployeeProfileFields();
+        
+             MainJFrame.refreshViewEmployeeProfileHistory(history); 
+        }
     }//GEN-LAST:event_updateActionPerformed
 
     private void txtStartDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStartDateActionPerformed
@@ -287,11 +306,11 @@ public class CreateEmployeeProfilePanel extends javax.swing.JPanel {
     private void createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createActionPerformed
         
         int employeeId = Integer.parseInt(txtEmployeeId.getText());
-        if(employeeProfileExistence()) {
+        if(!employeeProfileExistence()) {
         
         history.addNewEmployeeProfile(setEmployeeProfile());
         
-        JOptionPane.showMessageDialog(this, "New employee profile created");
+        JOptionPane.showMessageDialog(this, "New employee profile with employee id : " + employeeId + " created");
         
         resetCreateEmployeeProfileFields();
         

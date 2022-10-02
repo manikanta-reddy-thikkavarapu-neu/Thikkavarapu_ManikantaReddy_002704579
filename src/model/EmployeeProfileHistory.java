@@ -13,21 +13,35 @@ import java.util.ArrayList;
 public class EmployeeProfileHistory {
     
     private ArrayList<EmployeeProfile> employeeProfileHistoryList;
+    private ArrayList<EmployeeProfile> searchEmployeeProfileHistoryList;
     
     public EmployeeProfileHistory() {
-    this.employeeProfileHistoryList = new ArrayList<EmployeeProfile>();
+    this.employeeProfileHistoryList = new ArrayList<>();
+    this.searchEmployeeProfileHistoryList = new ArrayList<>();
 }
 
-    public ArrayList<EmployeeProfile> getHistory() {
+    public ArrayList<EmployeeProfile> getEmployeeProfileHistoryList() {
         return employeeProfileHistoryList;
     }
+    
+    public ArrayList<EmployeeProfile> getSearchEmployeeProfileHistoryList() {
+        return searchEmployeeProfileHistoryList;
+    }
 
-    public void setHistory(ArrayList<EmployeeProfile> history) {
+    public void setEmployeeProfileHistoryList(ArrayList<EmployeeProfile> history) {
         this.employeeProfileHistoryList = history;
+    }
+    
+    public void setSearchEmployeeProfileHistoryList(ArrayList<EmployeeProfile> searchHistory) {
+        this.searchEmployeeProfileHistoryList = searchHistory;
     }
     
     public void addNewEmployeeProfile(EmployeeProfile ep) {
         this.employeeProfileHistoryList.add(ep);
+    }
+    
+    public void updateExistingEmployeeProfile(EmployeeProfile ep, int index) {
+        this.employeeProfileHistoryList.set(index, ep);
     }
     
     public void deleteEmployeeProfile(EmployeeProfile ep) {
