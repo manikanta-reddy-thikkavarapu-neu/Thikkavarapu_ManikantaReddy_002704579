@@ -112,11 +112,11 @@ public class ViewEmployeeProfilePanel extends javax.swing.JPanel {
                         .addComponent(view)
                         .addGap(18, 18, 18)
                         .addComponent(delete)
-                        .addGap(200, 200, 200))))
+                        .addGap(374, 374, 374))))
             .addGroup(layout.createSequentialGroup()
-                .addGap(303, 303, 303)
+                .addGap(349, 349, 349)
                 .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(39, 39, 39)
                 .addComponent(searchButton)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -131,11 +131,11 @@ public class ViewEmployeeProfilePanel extends javax.swing.JPanel {
                     .addComponent(searchButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(view)
                     .addComponent(delete))
-                .addContainerGap(276, Short.MAX_VALUE))
+                .addContainerGap(270, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

@@ -50,7 +50,7 @@ public class MainJFrame extends javax.swing.JFrame {
         employeeControlPanel.setLayout(employeeControlPanelLayout);
         employeeControlPanelLayout.setHorizontalGroup(
             employeeControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         employeeControlPanelLayout.setVerticalGroup(
             employeeControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -63,7 +63,7 @@ public class MainJFrame extends javax.swing.JFrame {
         employeeDataHistoryPanel.setLayout(employeeDataHistoryPanelLayout);
         employeeDataHistoryPanelLayout.setHorizontalGroup(
             employeeDataHistoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 395, Short.MAX_VALUE)
+            .addGap(0, 795, Short.MAX_VALUE)
         );
         employeeDataHistoryPanelLayout.setVerticalGroup(
             employeeDataHistoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -76,7 +76,7 @@ public class MainJFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
+            .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
