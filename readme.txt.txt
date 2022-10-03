@@ -19,6 +19,7 @@ A lot of code optimization is done like eliminating repetitive code, dividing th
 Create:
 -> Fill in the text fields and create an employee profile.
 -> Validations: Empty fields, Wrong data type, Regex validations are done.
+-> Phone number and email basic regex validations done like phone number format -> [10 digits must. Eg: 6172384047] and email format -> [ @ must. Eg: t.manikanta65@gmail.com]
 -> Can't create a new employee with the same employee id.
 
 Update:
