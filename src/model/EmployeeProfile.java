@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.math.BigInteger;
+
 /**
  *
  * @author tmani
@@ -18,7 +20,7 @@ public class EmployeeProfile {
     private String level;
     private String teamInfo;
     private String positionTitle;
-    private Integer cellPhoneNumber;
+    private Long cellPhoneNumber;
     private String emailAddress;
     private String photoPath;
 
@@ -86,11 +88,11 @@ public class EmployeeProfile {
         this.positionTitle = positionTitle;
     }
 
-    public Integer getCellPhoneNumber() {
+    public Long getCellPhoneNumber() {
         return cellPhoneNumber;
     }
 
-    public void setCellPhoneNumber(Integer cellPhoneNumber) {
+    public void setCellPhoneNumber(Long cellPhoneNumber) {
         this.cellPhoneNumber = cellPhoneNumber;
     }
 

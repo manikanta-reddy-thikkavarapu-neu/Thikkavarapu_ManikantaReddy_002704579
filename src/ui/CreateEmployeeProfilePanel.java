@@ -80,7 +80,7 @@ public class CreateEmployeeProfilePanel extends javax.swing.JPanel {
         String level = txtLevel.getText();
         String teamInfo = txtTeamInfo.getText();
         String positionTitle = txtPositionTitle.getText();
-        int cellPhoneNumber = Integer.parseInt(txtCellPhoneNumber.getText());
+        long cellPhoneNumber = Long.valueOf(txtCellPhoneNumber.getText());
         String emailAddress = txtEmailAddress.getText();
 
         EmployeeProfile ep = new EmployeeProfile();
@@ -184,18 +184,18 @@ public class CreateEmployeeProfilePanel extends javax.swing.JPanel {
 
     public boolean areRegexValidationsCorrect() {
         validationString3 = "";
-//        String cellPhoneNumberRegex = "^\\d{10}$";
+        String cellPhoneNumberRegex = "^\\d{10}$";
         String emailAddressRegex = "^(.+)@(\\S+)$";
 
-//        Pattern cellPhoneNumberPattern = Pattern.compile(cellPhoneNumberRegex);
-//        Matcher cellPhoneNumberMatcher = cellPhoneNumberPattern.matcher(txtCellPhoneNumber.getText());
+        Pattern cellPhoneNumberPattern = Pattern.compile(cellPhoneNumberRegex);
+        Matcher cellPhoneNumberMatcher = cellPhoneNumberPattern.matcher(txtCellPhoneNumber.getText());
 
         Pattern emailPattern = Pattern.compile(emailAddressRegex);
         Matcher emailMatcher = emailPattern.matcher(txtEmailAddress.getText());
 
-//        if (!(txtCellPhoneNumber.getText().matches("^\\\\d{10}$"))) {
-//            validationString3 += "Cell Phone Number, ";
-//        }
+        if (!cellPhoneNumberMatcher.matches()) {
+            validationString3 += "Cell Phone Number, ";
+        }
         if (!emailMatcher.matches()) {
             validationString3 += "Email Address, ";
         }
@@ -210,6 +210,19 @@ public class CreateEmployeeProfilePanel extends javax.swing.JPanel {
             }
         }
         return true;
+    }
+
+    public void validationErrorMessagesDialog(boolean validation1, boolean validation2, boolean validation3) {
+        if (validation1) {
+            mainValidationString = validationString1;
+            JOptionPane.showMessageDialog(this, "Please update the data for these fields: " + mainValidationString);
+        } else if (validation2) {
+            mainValidationString = validationString2;
+            JOptionPane.showMessageDialog(this, "Please enter only numbers for these fields: " + mainValidationString);
+        } else if (validation3) {
+            mainValidationString = validationString3;
+            JOptionPane.showMessageDialog(this, "Please enter correct formats for these fields: " + mainValidationString);
+        }
     }
 
     /**
@@ -417,20 +430,30 @@ public class CreateEmployeeProfilePanel extends javax.swing.JPanel {
         if (!employeeProfileExistence()) {
             JOptionPane.showMessageDialog(this, "You can't update the employee profile since employee with employee id : " + employeeId + " doesn't exist");
         } else {
-            EmployeeProfile updatedEmployeeProfileData = setEmployeeProfile();
-            int index = 0;
-            for (EmployeeProfile ep : history.getEmployeeProfileHistoryList()) {
-                if (employeeId == ep.getEmployeeId()) {
-                    history.updateExistingEmployeeProfile(updatedEmployeeProfileData, index);
-                    break;
+
+            boolean validation1 = areDataFieldsEmpty();
+            boolean validation2 = areDataTypesCorrect();
+            boolean validation3 = areRegexValidationsCorrect();
+
+            if (!validation1 && !validation2 && !validation3) {
+
+                EmployeeProfile updatedEmployeeProfileData = setEmployeeProfile();
+                int index = 0;
+                for (EmployeeProfile ep : history.getEmployeeProfileHistoryList()) {
+                    if (employeeId == ep.getEmployeeId()) {
+                        history.updateExistingEmployeeProfile(updatedEmployeeProfileData, index);
+                        break;
+                    }
+                    index++;
                 }
-                index++;
+                JOptionPane.showMessageDialog(this, "Existing employee profile with employee id : " + employeeId + " updated");
+
+                resetCreateEmployeeProfileFields();
+
+                MainJFrame.refreshViewEmployeeProfileHistory(history);
+            } else {
+                validationErrorMessagesDialog(validation1, validation2, validation3);
             }
-            JOptionPane.showMessageDialog(this, "Existing employee profile with employee id : " + employeeId + " updated");
-
-            resetCreateEmployeeProfileFields();
-
-            MainJFrame.refreshViewEmployeeProfileHistory(history);
         }
     }//GEN-LAST:event_updateActionPerformed
 
@@ -459,16 +482,7 @@ public class CreateEmployeeProfilePanel extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Employee profile already exists with the employee id : " + employeeId);
             }
         } else {
-            if (validation1) {
-                mainValidationString = validationString1;
-                JOptionPane.showMessageDialog(this, "Please fill the data for these fields: " + mainValidationString);
-            } else if (validation2) {
-                mainValidationString = validationString2;
-                JOptionPane.showMessageDialog(this, "Please enter only numbers for these fields: " + mainValidationString);
-            } else if (validation3) {
-                mainValidationString = validationString3;
-                JOptionPane.showMessageDialog(this, "Please enter correct formats for these fields: " + mainValidationString);
-            }
+            validationErrorMessagesDialog(validation1, validation2, validation3);
         }
     }//GEN-LAST:event_createActionPerformed
 
