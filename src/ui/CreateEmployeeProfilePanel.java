@@ -5,6 +5,8 @@
 package ui;
 
 import java.awt.Image;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -181,7 +183,23 @@ public class CreateEmployeeProfilePanel extends javax.swing.JPanel {
     }
 
     public boolean areRegexValidationsCorrect() {
-        return true;
+        validationString3 = "";
+//        String cellPhoneNumberRegex = "^\\d{10}$";
+        String emailAddressRegex = "^(.+)@(\\S+)$";
+
+//        Pattern cellPhoneNumberPattern = Pattern.compile(cellPhoneNumberRegex);
+//        Matcher cellPhoneNumberMatcher = cellPhoneNumberPattern.matcher(txtCellPhoneNumber.getText());
+
+        Pattern emailPattern = Pattern.compile(emailAddressRegex);
+        Matcher emailMatcher = emailPattern.matcher(txtEmailAddress.getText());
+
+//        if (!(txtCellPhoneNumber.getText().matches("^\\\\d{10}$"))) {
+//            validationString3 += "Cell Phone Number, ";
+//        }
+        if (!emailMatcher.matches()) {
+            validationString3 += "Email Address, ";
+        }
+        return isNotValid(validationString3);
     }
 
     public boolean onlyDigits(String str) {
@@ -447,8 +465,9 @@ public class CreateEmployeeProfilePanel extends javax.swing.JPanel {
             } else if (validation2) {
                 mainValidationString = validationString2;
                 JOptionPane.showMessageDialog(this, "Please enter only numbers for these fields: " + mainValidationString);
-            } else {
-
+            } else if (validation3) {
+                mainValidationString = validationString3;
+                JOptionPane.showMessageDialog(this, "Please enter correct formats for these fields: " + mainValidationString);
             }
         }
     }//GEN-LAST:event_createActionPerformed
