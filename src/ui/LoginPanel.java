@@ -98,6 +98,10 @@ public class LoginPanel extends javax.swing.JPanel {
                     PatientJFrame patient = new PatientJFrame();
                     patient.setVisible(true);
                 }
+                else if(personObj.getRoleType().equalsIgnoreCase("Doctor")) {
+                    DoctorJFrame doctor = new DoctorJFrame(personObj);
+                    doctor.setVisible(true);
+                }
             }
         }
     }//GEN-LAST:event_btnLoginUserActionPerformed

@@ -265,6 +265,8 @@ public class RegisterPanel extends javax.swing.JPanel {
         house.setCommunity(community);
         house.setStreet(streetNumber);
         
+        person.setHouse(house);
+        
         ArrayList<Person> personList = personDirectory.getPersonList();
         personList.add(person);
         personDirectory.setPersonList(personList);
