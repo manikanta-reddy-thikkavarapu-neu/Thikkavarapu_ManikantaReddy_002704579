@@ -11,19 +11,10 @@ import java.util.ArrayList;
  * @author manikantareddythikkavarapu
  */
 public class EncounterHistory {
-    private Patient patient;
     private ArrayList<Encounter> encounters;
     
     public EncounterHistory() {
         this.encounters = new ArrayList<>();
-    }
-
-    public Patient getPatient() {
-        return patient;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patient = patient;
     }
 
     public ArrayList<Encounter> getEncounters() {

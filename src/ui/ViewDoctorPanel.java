@@ -4,6 +4,7 @@
  */
 package ui;
 
+import model.Patient;
 import model.Person;
 
 /**
@@ -15,20 +16,26 @@ public class ViewDoctorPanel extends javax.swing.JPanel {
     /**
      * Creates new form ViewDoctorPanel
      */
-    
     Person person;
-    
+    Patient patient;
+
     public ViewDoctorPanel(Person person) {
         initComponents();
         this.person = person;
         setDoctorProfileData();
     }
-    
-        public void setDoctorProfileData() {
+
+    public ViewDoctorPanel(Patient patient) {
+        initComponents();
+        this.patient = patient;
+        System.out.println(this.patient);
+        setDoctorProfileData();
+    }
+
+    public void setDoctorProfileData() {
         txtDoctorNameValue.setText(this.person.getFirstName() + " " + this.person.getLastName());
         txtCommunityNameValue.setText(this.person.getHouse().getCommunity());
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.

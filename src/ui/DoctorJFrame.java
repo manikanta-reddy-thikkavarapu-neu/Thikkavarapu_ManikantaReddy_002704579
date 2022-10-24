@@ -4,6 +4,7 @@
  */
 package ui;
 
+import model.Patient;
 import model.Person;
 
 /**
@@ -15,9 +16,9 @@ public class DoctorJFrame extends javax.swing.JFrame {
     /**
      * Creates new form DoctorJFrame
      */
-    
     Person person;
-    
+    Patient patient;
+
     public DoctorJFrame() {
         initComponents();
     }
@@ -25,16 +26,24 @@ public class DoctorJFrame extends javax.swing.JFrame {
     public DoctorJFrame(Person person) {
         initComponents();
         this.person = person;
+        patient = new Patient();
         doctorSplitPane1 = doctorSplitPane;
-        
+
         CreateDoctorPanel createDoctorPanel = new CreateDoctorPanel(person);
         doctorSplitPane1.setLeftComponent(createDoctorPanel);
-        
+
         ViewDoctorPanel viewDoctorPanel = new ViewDoctorPanel(person);
         doctorSplitPane1.setRightComponent(viewDoctorPanel);
-        
+
     }
-    
+
+    public static void refreshViewDoctorPanel(Patient patient) {
+        doctorSplitPane1.setRightComponent(new ViewDoctorPanel(patient));
+    }
+
+    public static void refreshCreateDoctorPanel(Patient patient) {
+        doctorSplitPane1.setLeftComponent(new CreateDoctorPanel(patient));
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

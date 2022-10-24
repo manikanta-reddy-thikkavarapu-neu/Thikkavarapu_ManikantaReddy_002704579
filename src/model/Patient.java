@@ -10,7 +10,7 @@ package model;
  */
 public class Patient {
 
-    private Integer patientId;
+    private String patientName;
     private EncounterHistory encounterHistory;
     private Long date;
 
@@ -26,12 +26,12 @@ public class Patient {
         this.encounterHistory = new EncounterHistory();
     }
 
-    public Integer getPatientId() {
-        return patientId;
+    public String getPatientName() {
+        return patientName;
     }
 
-    public void setPatientId(Integer patientId) {
-        this.patientId = patientId;
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
     }
 
     public EncounterHistory getEncounterHistory() {

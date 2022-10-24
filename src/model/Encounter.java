@@ -10,7 +10,7 @@ package model;
  */
 public class Encounter {
     private Integer encounterId;
-    private Long date;
+    private String date;
     private String description;
     private VitalSigns vitalSigns;
 
@@ -22,11 +22,11 @@ public class Encounter {
         this.encounterId = encounterId;
     }
 
-    public Long getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Long date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

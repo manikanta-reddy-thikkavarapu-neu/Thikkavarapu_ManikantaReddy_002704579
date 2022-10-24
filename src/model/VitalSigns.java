@@ -12,7 +12,15 @@ public class VitalSigns {
     private double heartRate;
     private double bloodPressure;
     private double temperature;
+    private double weight;
 
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
 
     public double getHeartRate() {
         return heartRate;
