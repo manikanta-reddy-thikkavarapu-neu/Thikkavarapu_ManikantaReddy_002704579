@@ -9,7 +9,7 @@ package model;
  * @author manikantareddythikkavarapu
  */
 public class Person {
-    private Integer personId;
+    private Long personId;
     private String firstName;
     private String lastName;
     private String emailAddress;
@@ -28,11 +28,11 @@ public class Person {
         this.house = house;
     }
 
-    public Integer getPersonId() {
+    public Long getPersonId() {
         return personId;
     }
 
-    public void setPersonId(Integer personId) {
+    public void setPersonId(Long personId) {
         this.personId = personId;
     }
 

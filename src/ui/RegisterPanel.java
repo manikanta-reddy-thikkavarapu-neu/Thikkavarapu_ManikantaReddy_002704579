@@ -34,6 +34,7 @@ public class RegisterPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel13 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         txtFName = new javax.swing.JTextField();
         txtLName = new javax.swing.JTextField();
@@ -57,6 +58,12 @@ public class RegisterPanel extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         txtCommunity = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
+        txtPersonId = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        txtPhoneNumber = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+
+        jLabel13.setText("jLabel13");
 
         jLabel1.setText("First Name");
 
@@ -106,12 +113,25 @@ public class RegisterPanel extends javax.swing.JPanel {
 
         jLabel11.setText("Community");
 
+        txtPersonId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPersonIdActionPerformed(evt);
+            }
+        });
+
+        jLabel12.setText("SSN");
+
+        jLabel14.setText("Phone number");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(221, 221, 221)
+                        .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(144, 144, 144)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -126,9 +146,13 @@ public class RegisterPanel extends javax.swing.JPanel {
                             .addComponent(jLabel8)
                             .addComponent(jLabel9)
                             .addComponent(jLabel10)
-                            .addComponent(jLabel11))
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel14))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtPhoneNumber)
+                            .addComponent(txtPersonId)
                             .addComponent(txtCommunity)
                             .addComponent(txtCountry)
                             .addComponent(txtCity)
@@ -139,16 +163,17 @@ public class RegisterPanel extends javax.swing.JPanel {
                             .addComponent(txtLName)
                             .addComponent(txtFName)
                             .addComponent(cmbRole, javax.swing.GroupLayout.Alignment.TRAILING, 0, 177, Short.MAX_VALUE)
-                            .addComponent(txtAge)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(221, 221, 221)
-                        .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtAge))))
                 .addContainerGap(249, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(70, 70, 70)
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPersonId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtFName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
@@ -192,7 +217,11 @@ public class RegisterPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCommunity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addComponent(btnRegister)
                 .addGap(30, 30, 30))
         );
@@ -207,19 +236,34 @@ public class RegisterPanel extends javax.swing.JPanel {
         Person person = new Person();
         House house = new House();
         
+        long personId = Long.valueOf(txtPersonId.getText());
         String firstName = txtFName.getText();
         String lastName = txtLName.getText();
         String email = txtEmailAddress.getText();
         String password = txtPassword.getText();
         String roleType = (String)cmbRole.getSelectedItem();
-        
+        String houseNumber = txtHouseNumber.getText();
+        int age = Integer.parseInt(txtAge.getText());
+        long cellPhoneNumber = Long.valueOf(txtPhoneNumber.getText());
+        String city = txtCity.getText();
+        String country = txtCountry.getText();
+        String community = txtCommunity.getText();
+        String streetNumber = txtStreetNumber.getText();
         
         person.setFirstName(firstName);
         person.setLastName(lastName);
         person.setEmailAddress(email);
         person.setPassword(password);
         person.setRoleType(roleType);
+        person.setAge(age);
+        person.setPersonId(personId);
+        person.setPhoneNumber(cellPhoneNumber);
         
+        house.setHouseNumber(houseNumber);
+        house.setCity(city);
+        house.setCountry(country);
+        house.setCommunity(community);
+        house.setStreet(streetNumber);
         
         ArrayList<Person> personList = personDirectory.getPersonList();
         personList.add(person);
@@ -237,6 +281,10 @@ public class RegisterPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtHouseNumberActionPerformed
 
+    private void txtPersonIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPersonIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPersonIdActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegister;
@@ -244,6 +292,9 @@ public class RegisterPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -261,6 +312,8 @@ public class RegisterPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtHouseNumber;
     private javax.swing.JTextField txtLName;
     private javax.swing.JTextField txtPassword;
+    private javax.swing.JTextField txtPersonId;
+    private javax.swing.JTextField txtPhoneNumber;
     private javax.swing.JTextField txtStreetNumber;
     // End of variables declaration//GEN-END:variables
 }
