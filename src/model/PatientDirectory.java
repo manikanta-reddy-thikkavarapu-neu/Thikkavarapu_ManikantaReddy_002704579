@@ -24,4 +24,8 @@ public class PatientDirectory {
     public void setPatients(ArrayList<Patient> patients) {
         this.patients = patients;
     }
+    
+    public void addPatients(Patient patient) {
+        this.patients.add(patient);
+    }
 }

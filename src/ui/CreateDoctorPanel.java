@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import model.Encounter;
 import model.EncounterHistory;
 import model.Patient;
+import model.PatientDirectory;
 import model.Person;
 import model.VitalSigns;
 
@@ -23,19 +24,15 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
      * Creates new form CreateDoctor
      */
     Person person;
-    Patient patient;
+    PatientDirectory patientDirectory;
 
-    public CreateDoctorPanel(Person person) {
+    public CreateDoctorPanel(Person person, PatientDirectory patientDirectory) {
         initComponents();
         this.person = person;
+        this.patientDirectory = patientDirectory;
     }
 
-    public CreateDoctorPanel(Patient patient) {
-        initComponents();
-        this.patient = patient;
-    }
-
-    private void setEncounterData() {
+    private Patient setEncounterData() {
         int encounterId = Integer.parseInt(txtEncounterId.getText());
         String patientName = txtPatientName.getText();
         String encounterDate = txtEncounterDate.getText();
@@ -47,6 +44,7 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
         Encounter enc = new Encounter();
         VitalSigns vs = new VitalSigns();
         EncounterHistory encH = new EncounterHistory();
+        Patient patient = new Patient();
 
         patient.setPatientName(patientName);
 
@@ -65,6 +63,8 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
         encH.setEncounters(encounterList);
 
         patient.setEncounterHistory(encH);
+
+        return patient;
     }
 
     private void resetEncounterData() {
@@ -146,39 +146,47 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
                 .addGap(73, 73, 73)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtWeight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(8, 8, 8)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(41, 41, 41)
+                                .addComponent(jLabel7)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtWeight, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(create)
+                                .addGap(18, 18, 18)
+                                .addComponent(update)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(26, 26, 26)
+                                .addComponent(txtTemperature))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addGap(18, 18, 18)
-                        .addComponent(txtBloodPressure, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
+                        .addComponent(txtBloodPressure))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
                         .addGap(18, 18, 18)
-                        .addComponent(txtHeartRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtHeartRate)
+                            .addComponent(txtEncounterDate)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtEncounterDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtEncounterId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtPatientName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(create)
-                            .addGap(18, 18, 18)
-                            .addComponent(update))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel6)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtTemperature, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(156, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(34, 34, 34)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtPatientName, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+                            .addComponent(txtEncounterId))))
+                .addGap(89, 89, 89))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,10 +238,10 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
     private void createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createActionPerformed
         // TODO add your handling code here:                                      
         int encounterId = Integer.parseInt(txtEncounterId.getText());
-        setEncounterData();
+        patientDirectory.addPatients(setEncounterData());
         JOptionPane.showMessageDialog(this, "New encounter data with encounter id : " + encounterId + " created");
         resetEncounterData();
-        DoctorJFrame.refreshViewDoctorPanel(patient);
+        DoctorJFrame.refreshViewDoctorPanel(person, patientDirectory);
     }//GEN-LAST:event_createActionPerformed
 
 

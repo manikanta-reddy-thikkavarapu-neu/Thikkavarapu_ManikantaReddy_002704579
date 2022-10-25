@@ -5,6 +5,7 @@
 package ui;
 
 import java.util.ArrayList;
+import model.PatientDirectory;
 import model.Person;
 import model.PersonDirectory;
 
@@ -13,15 +14,17 @@ import model.PersonDirectory;
  * @author manikantareddythikkavarapu
  */
 public class LoginPanel extends javax.swing.JPanel {
+
     PersonDirectory personDirectory;
-    
+    PatientDirectory patientDirectory;
+
     /**
      * Creates new form LoginPanel
      */
-    public LoginPanel(PersonDirectory personDirectory) {
+    public LoginPanel(PersonDirectory personDirectory, PatientDirectory patientDirectory) {
         initComponents();
         this.personDirectory = personDirectory;
-        
+        this.patientDirectory = patientDirectory;
     }
 
     /**
@@ -92,14 +95,13 @@ public class LoginPanel extends javax.swing.JPanel {
         String emailAddress = txtEmailAddress.getText();
         String password = txtEPassword.getText();
         ArrayList<Person> personList = personDirectory.getPersonList();
-        for(Person personObj: personList){
-            if(emailAddress.equalsIgnoreCase(personObj.getEmailAddress()) && password.equalsIgnoreCase(personObj.getPassword())){
-                if(personObj.getRoleType().equalsIgnoreCase("Patient")){
+        for (Person personObj : personList) {
+            if (emailAddress.equalsIgnoreCase(personObj.getEmailAddress()) && password.equalsIgnoreCase(personObj.getPassword())) {
+                if (personObj.getRoleType().equalsIgnoreCase("Patient")) {
                     PatientJFrame patient = new PatientJFrame();
                     patient.setVisible(true);
-                }
-                else if(personObj.getRoleType().equalsIgnoreCase("Doctor")) {
-                    DoctorJFrame doctor = new DoctorJFrame(personObj);
+                } else if (personObj.getRoleType().equalsIgnoreCase("Doctor")) {
+                    DoctorJFrame doctor = new DoctorJFrame(personObj, patientDirectory);
                     doctor.setVisible(true);
                 }
             }

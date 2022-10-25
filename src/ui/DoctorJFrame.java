@@ -5,6 +5,7 @@
 package ui;
 
 import model.Patient;
+import model.PatientDirectory;
 import model.Person;
 
 /**
@@ -17,32 +18,33 @@ public class DoctorJFrame extends javax.swing.JFrame {
      * Creates new form DoctorJFrame
      */
     Person person;
-    Patient patient;
+    PatientDirectory patientDirectory;
 
     public DoctorJFrame() {
         initComponents();
     }
 
-    public DoctorJFrame(Person person) {
+    public DoctorJFrame(Person person, PatientDirectory patientDirectory) {
         initComponents();
         this.person = person;
-        patient = new Patient();
+        this.patientDirectory = patientDirectory;
         doctorSplitPane1 = doctorSplitPane;
 
-        CreateDoctorPanel createDoctorPanel = new CreateDoctorPanel(person);
+        CreateDoctorPanel createDoctorPanel = new CreateDoctorPanel(person, patientDirectory);
         doctorSplitPane1.setLeftComponent(createDoctorPanel);
 
-        ViewDoctorPanel viewDoctorPanel = new ViewDoctorPanel(person);
+        ViewDoctorPanel viewDoctorPanel = new ViewDoctorPanel(person, patientDirectory);
         doctorSplitPane1.setRightComponent(viewDoctorPanel);
 
     }
 
-    public static void refreshViewDoctorPanel(Patient patient) {
-        doctorSplitPane1.setRightComponent(new ViewDoctorPanel(patient));
+    public static void refreshViewDoctorPanel(Person person, PatientDirectory patientDirectory) {
+        doctorSplitPane1.setRightComponent(new ViewDoctorPanel(person, patientDirectory));
+        MainFrame.persistPatientData(patientDirectory);
     }
 
-    public static void refreshCreateDoctorPanel(Patient patient) {
-        doctorSplitPane1.setLeftComponent(new CreateDoctorPanel(patient));
+    public static void refreshCreateDoctorPanel(Person person, PatientDirectory patientDirectory) {
+        doctorSplitPane1.setLeftComponent(new CreateDoctorPanel(person, patientDirectory));
     }
 
     /**
