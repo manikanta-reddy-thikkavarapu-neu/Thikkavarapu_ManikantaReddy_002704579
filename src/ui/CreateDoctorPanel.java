@@ -25,11 +25,30 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
      */
     Person person;
     PatientDirectory patientDirectory;
+    Patient patient;
 
     public CreateDoctorPanel(Person person, PatientDirectory patientDirectory) {
         initComponents();
         this.person = person;
         this.patientDirectory = patientDirectory;
+    }
+
+    public CreateDoctorPanel(Person person, PatientDirectory patientDirectory, Patient patient) {
+        initComponents();
+        this.person = person;
+        this.patientDirectory = patientDirectory;
+        this.patient = patient;
+        setCreateDoctorPanel();
+    }
+
+    private void setCreateDoctorPanel() {
+        txtEncounterId.setText("");
+        txtEncounterDate.setText("");
+        txtBloodPressure.setText("");
+        txtHeartRate.setText("");
+        txtTemperature.setText("");
+        txtWeight.setText("");
+        txtPatientName.setText("");
     }
 
     private Patient setEncounterData() {
@@ -46,7 +65,7 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
         EncounterHistory encH = new EncounterHistory();
         Patient patient = new Patient();
 
-        patient.setPatientName(patientName);
+        patient.setName(patientName);
 
         enc.setEncounterId(encounterId);
         enc.setDate(encounterDate);

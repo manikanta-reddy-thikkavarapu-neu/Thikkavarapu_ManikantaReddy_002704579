@@ -4,6 +4,10 @@
  */
 package ui;
 
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Encounter;
 import model.Patient;
 import model.PatientDirectory;
 import model.Person;
@@ -25,11 +29,48 @@ public class ViewDoctorPanel extends javax.swing.JPanel {
         this.person = person;
         this.patientDirectory = patientDirectory;
         setDoctorProfileData();
+        getPatientData();
     }
 
     public void setDoctorProfileData() {
         txtDoctorNameValue.setText(this.person.getFirstName() + " " + this.person.getLastName());
         txtCommunityNameValue.setText(this.person.getHouse().getCommunity());
+    }
+
+    public void getPatientData() {
+
+        Patient patientObj = new Patient();
+
+        for (Patient pa : patientDirectory.getPatients()) {
+            if (pa.getName().equals("PatientA")) {
+                patientObj = pa;
+                break;
+            }
+        }
+
+        populateEncounterTable(patientObj);
+    }
+
+    public void populateEncounterTable(Patient patient) {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+
+        ArrayList<Encounter> encounterList;
+
+        encounterList = patient.getEncounterHistory().getEncounters();
+
+        for (Encounter enc : encounterList) {
+            Object[] row = new Object[7];
+            row[0] = patient;
+            row[1] = enc.getEncounterId();
+            row[2] = enc.getDate();
+            row[3] = enc.getVitalSigns().getHeartRate();
+            row[4] = enc.getVitalSigns().getBloodPressure();
+            row[5] = enc.getVitalSigns().getTemperature();
+            row[6] = enc.getVitalSigns().getWeight();
+
+            model.addRow(row);
+        }
     }
 
     /**
@@ -49,6 +90,8 @@ public class ViewDoctorPanel extends javax.swing.JPanel {
         jComboBox1 = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        view = new javax.swing.JButton();
+        delete = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -76,7 +119,7 @@ public class ViewDoctorPanel extends javax.swing.JPanel {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, true, false, true, true, true, true
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -84,6 +127,20 @@ public class ViewDoctorPanel extends javax.swing.JPanel {
             }
         });
         jScrollPane1.setViewportView(jTable1);
+
+        view.setText("View");
+        view.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewActionPerformed(evt);
+            }
+        });
+
+        delete.setText("Delete");
+        delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -109,6 +166,12 @@ public class ViewDoctorPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtCommunityNameValue)
                         .addGap(45, 45, 45))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(282, 282, 282)
+                .addComponent(view)
+                .addGap(18, 18, 18)
+                .addComponent(delete)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,12 +188,44 @@ public class ViewDoctorPanel extends javax.swing.JPanel {
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(234, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(view)
+                    .addComponent(delete))
+                .addContainerGap(193, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewActionPerformed
+        // TODO add your handling code here:
+        int selectedRowIndex = jTable1.getSelectedRow();
+        if (selectedRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a row to view.");
+            return;
+        }
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        Patient selectedPatientEncounter = (Patient) model.getValueAt(selectedRowIndex, 0);
+        DoctorJFrame.setCreateDoctorPanel(person, patientDirectory, selectedPatientEncounter);
+    }//GEN-LAST:event_viewActionPerformed
+
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+        // TODO add your handling code here:
+        int selectedRowIndex = jTable1.getSelectedRow();
+        if (selectedRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a row to delete.");
+            return;
+        }
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        Patient selectedPatientEncounter = (Patient) model.getValueAt(selectedRowIndex, 0);
+        patientDirectory.deletePatientEncounter(selectedPatientEncounter);
+        JOptionPane.showMessageDialog(this, "Patient encounter deleted");
+        getPatientData();
+        DoctorJFrame.refreshCreateDoctorPanel(person, patientDirectory);
+    }//GEN-LAST:event_deleteActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton delete;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -139,5 +234,6 @@ public class ViewDoctorPanel extends javax.swing.JPanel {
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel txtCommunityNameValue;
     private javax.swing.JLabel txtDoctorNameValue;
+    private javax.swing.JButton view;
     // End of variables declaration//GEN-END:variables
 }

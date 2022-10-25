@@ -10,7 +10,7 @@ package model;
  */
 public class Patient {
 
-    private String patientName;
+    private String name;
     private EncounterHistory encounterHistory;
     private Long date;
 
@@ -26,12 +26,12 @@ public class Patient {
         this.encounterHistory = new EncounterHistory();
     }
 
-    public String getPatientName() {
-        return patientName;
+    public String getName() {
+        return name;
     }
 
-    public void setPatientName(String patientName) {
-        this.patientName = patientName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public EncounterHistory getEncounterHistory() {
@@ -40,5 +40,10 @@ public class Patient {
 
     public void setEncounterHistory(EncounterHistory encounterHistory) {
         this.encounterHistory = encounterHistory;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

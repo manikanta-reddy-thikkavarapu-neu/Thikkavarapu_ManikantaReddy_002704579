@@ -45,6 +45,11 @@ public class DoctorJFrame extends javax.swing.JFrame {
 
     public static void refreshCreateDoctorPanel(Person person, PatientDirectory patientDirectory) {
         doctorSplitPane1.setLeftComponent(new CreateDoctorPanel(person, patientDirectory));
+        MainFrame.persistPatientData(patientDirectory);
+    }
+
+    public static void setCreateDoctorPanel(Person person, PatientDirectory patientDirectory, Patient patient) {
+        doctorSplitPane1.setLeftComponent(new CreateDoctorPanel(person, patientDirectory, patient));
     }
 
     /**

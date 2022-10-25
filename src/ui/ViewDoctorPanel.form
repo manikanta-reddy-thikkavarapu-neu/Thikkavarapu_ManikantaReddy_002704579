@@ -41,6 +41,13 @@
                   </Group>
               </Group>
           </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="282" max="-2" attributes="0"/>
+              <Component id="view" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="delete" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -59,7 +66,12 @@
               <Component id="jComboBox1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="234" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="view" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="delete" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="193" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -120,13 +132,13 @@
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="7" rowCount="4">
-                <Column editable="true" title="Patient Name" type="java.lang.Object"/>
-                <Column editable="true" title="Encounter Id" type="java.lang.Object"/>
+                <Column editable="false" title="Patient Name" type="java.lang.Object"/>
+                <Column editable="false" title="Encounter Id" type="java.lang.Object"/>
                 <Column editable="false" title="Encounter Date" type="java.lang.Object"/>
-                <Column editable="true" title="Heart Rate" type="java.lang.Object"/>
-                <Column editable="true" title="Blood Pressure" type="java.lang.Object"/>
-                <Column editable="true" title="Temperature" type="java.lang.Object"/>
-                <Column editable="true" title="Weight" type="java.lang.Object"/>
+                <Column editable="false" title="Heart Rate" type="java.lang.Object"/>
+                <Column editable="false" title="Blood Pressure" type="java.lang.Object"/>
+                <Column editable="false" title="Temperature" type="java.lang.Object"/>
+                <Column editable="false" title="Weight" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -175,5 +187,21 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JButton" name="view">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="View"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="delete">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Delete"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>

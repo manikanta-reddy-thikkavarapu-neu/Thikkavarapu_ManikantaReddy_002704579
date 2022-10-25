@@ -11,7 +11,8 @@ import java.util.ArrayList;
  * @author manikantareddythikkavarapu
  */
 public class PatientDirectory {
-     private ArrayList<Patient> patients;
+
+    private ArrayList<Patient> patients;
 
     public PatientDirectory() {
         this.patients = new ArrayList<>();
@@ -24,8 +25,12 @@ public class PatientDirectory {
     public void setPatients(ArrayList<Patient> patients) {
         this.patients = patients;
     }
-    
+
     public void addPatients(Patient patient) {
         this.patients.add(patient);
+    }
+
+    public void deletePatientEncounter(Patient patient) {
+        this.patients.remove(patient);
     }
 }
