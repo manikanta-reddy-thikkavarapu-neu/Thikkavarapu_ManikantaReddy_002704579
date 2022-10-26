@@ -19,9 +19,15 @@ public class DoctorJFrame extends javax.swing.JFrame {
      */
     Person person;
     PatientDirectory patientDirectory;
+    static DoctorJFrame doctorJFrame;
+    
 
     public DoctorJFrame() {
         initComponents();
+    }
+    
+    public DoctorJFrame(DoctorJFrame doctorJFrame) {
+        this.doctorJFrame = doctorJFrame;
     }
 
     public DoctorJFrame(Person person, PatientDirectory patientDirectory) {
@@ -36,6 +42,10 @@ public class DoctorJFrame extends javax.swing.JFrame {
         ViewDoctorPanel viewDoctorPanel = new ViewDoctorPanel(person, patientDirectory);
         doctorSplitPane1.setRightComponent(viewDoctorPanel);
 
+    }
+
+    public static void closeFrame() {
+        doctorJFrame.dispose();
     }
 
     public static void refreshViewDoctorPanel(Person person, PatientDirectory patientDirectory) {

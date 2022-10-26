@@ -187,6 +187,7 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         create = new javax.swing.JButton();
         update = new javax.swing.JButton();
+        backBtn = new javax.swing.JButton();
 
         jLabel1.setText("Patient Name");
 
@@ -225,6 +226,13 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
         update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateActionPerformed(evt);
+            }
+        });
+
+        backBtn.setText("Back");
+        backBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backBtnActionPerformed(evt);
             }
         });
 
@@ -277,11 +285,17 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
                             .addComponent(txtPatientName, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
                             .addComponent(txtEncounterId))))
                 .addGap(89, 89, 89))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(backBtn)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(49, 49, 49)
+                .addContainerGap()
+                .addComponent(backBtn)
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtPatientName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -345,8 +359,14 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
         DoctorJFrame.refreshViewDoctorPanel(person, patientDirectory);
     }//GEN-LAST:event_updateActionPerformed
 
+    private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
+        // TODO add your handling code here:
+        DoctorJFrame.closeFrame();
+    }//GEN-LAST:event_backBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backBtn;
     private javax.swing.JButton create;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
