@@ -30,7 +30,18 @@ public class PatientDirectory {
         this.patients.add(patient);
     }
 
-    public void deletePatientEncounter(Patient patient) {
-        this.patients.remove(patient);
+    public void deletePatientEncounter(Patient patientObj, int encounterIndex) {
+        int index = 0;
+        for (Patient pa : this.patients) {
+            if (pa.getName().equals(patientObj.getName())) {
+                pa.getEncounterHistory().getEncounters().remove(encounterIndex);
+                break;
+            }
+            index++;
+        }
+    }
+
+    public void updatePatients(Patient patient, int index) {
+        this.patients.set(index, patient);
     }
 }

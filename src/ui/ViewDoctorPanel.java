@@ -4,6 +4,8 @@
  */
 package ui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -29,7 +31,8 @@ public class ViewDoctorPanel extends javax.swing.JPanel {
         this.person = person;
         this.patientDirectory = patientDirectory;
         setDoctorProfileData();
-        getPatientData();
+        getPatientData(jComboBox1.getSelectedItem().toString());
+        onChangeComboBox();
     }
 
     public void setDoctorProfileData() {
@@ -37,12 +40,20 @@ public class ViewDoctorPanel extends javax.swing.JPanel {
         txtCommunityNameValue.setText(this.person.getHouse().getCommunity());
     }
 
-    public void getPatientData() {
+    public void onChangeComboBox() {
+        jComboBox1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                getPatientData(jComboBox1.getSelectedItem().toString());
+            }
+        });
+    }
+
+    public void getPatientData(String selectedPatient) {
 
         Patient patientObj = new Patient();
 
         for (Patient pa : patientDirectory.getPatients()) {
-            if (pa.getName().equals("PatientA")) {
+            if (pa.getName().equals(selectedPatient)) {
                 patientObj = pa;
                 break;
             }
@@ -204,8 +215,7 @@ public class ViewDoctorPanel extends javax.swing.JPanel {
             return;
         }
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        Patient selectedPatientEncounter = (Patient) model.getValueAt(selectedRowIndex, 0);
-        DoctorJFrame.setCreateDoctorPanel(person, patientDirectory, selectedPatientEncounter);
+        DoctorJFrame.setCreateDoctorPanel(person, patientDirectory, (Patient) model.getValueAt(selectedRowIndex, 0), selectedRowIndex);
     }//GEN-LAST:event_viewActionPerformed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
@@ -216,10 +226,9 @@ public class ViewDoctorPanel extends javax.swing.JPanel {
             return;
         }
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        Patient selectedPatientEncounter = (Patient) model.getValueAt(selectedRowIndex, 0);
-        patientDirectory.deletePatientEncounter(selectedPatientEncounter);
+        patientDirectory.deletePatientEncounter((Patient) model.getValueAt(selectedRowIndex, 0), selectedRowIndex);
         JOptionPane.showMessageDialog(this, "Patient encounter deleted");
-        getPatientData();
+        getPatientData(jComboBox1.getSelectedItem().toString());
         DoctorJFrame.refreshCreateDoctorPanel(person, patientDirectory);
     }//GEN-LAST:event_deleteActionPerformed
 

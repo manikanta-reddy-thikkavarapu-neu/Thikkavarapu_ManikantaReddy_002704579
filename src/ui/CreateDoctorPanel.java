@@ -33,25 +33,33 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
         this.patientDirectory = patientDirectory;
     }
 
-    public CreateDoctorPanel(Person person, PatientDirectory patientDirectory, Patient patient) {
+    public CreateDoctorPanel(Person person, PatientDirectory patientDirectory, Patient patient, int selectedRowIndex) {
         initComponents();
         this.person = person;
         this.patientDirectory = patientDirectory;
         this.patient = patient;
-        setCreateDoctorPanel();
+        setCreateDoctorPanel(selectedRowIndex);
     }
 
-    private void setCreateDoctorPanel() {
-        txtEncounterId.setText("");
-        txtEncounterDate.setText("");
-        txtBloodPressure.setText("");
-        txtHeartRate.setText("");
-        txtTemperature.setText("");
-        txtWeight.setText("");
-        txtPatientName.setText("");
+    private void setCreateDoctorPanel(int selectedRowIndex) {
+
+        int index = 0;
+        for (Encounter enc : this.patient.getEncounterHistory().getEncounters()) {
+            if (index == selectedRowIndex) {
+                txtEncounterId.setText(enc.getEncounterId().toString());
+                txtEncounterDate.setText(enc.getDate());
+                txtBloodPressure.setText(Double.toString(enc.getVitalSigns().getBloodPressure()));
+                txtHeartRate.setText(Double.toString(enc.getVitalSigns().getHeartRate()));
+                txtTemperature.setText(Double.toString(enc.getVitalSigns().getTemperature()));
+                txtWeight.setText(Double.toString(enc.getVitalSigns().getWeight()));
+                txtPatientName.setText(patient.getName());
+                break;
+            }
+            index++;
+        }
     }
 
-    private Patient setEncounterData() {
+    private void setEncounterData() {
         int encounterId = Integer.parseInt(txtEncounterId.getText());
         String patientName = txtPatientName.getText();
         String encounterDate = txtEncounterDate.getText();
@@ -65,7 +73,55 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
         EncounterHistory encH = new EncounterHistory();
         Patient patient = new Patient();
 
-        patient.setName(patientName);
+        enc.setEncounterId(encounterId);
+        enc.setDate(encounterDate);
+
+        vs.setBloodPressure(bloodPressure);
+        vs.setHeartRate(heartRate);
+        vs.setTemperature(temperature);
+        vs.setWeight(weight);
+
+        enc.setVitalSigns(vs);
+
+        boolean proceed = true;
+
+        for (Patient pa : patientDirectory.getPatients()) {
+            int index = 0;
+            if (pa.getName().equals(patientName)) {
+                pa.getEncounterHistory().addEncounters(enc);
+                patientDirectory.updatePatients(pa, index);
+                proceed = false;
+                break;
+            }
+            index++;
+        }
+
+        if (proceed) {
+            patient.setName(patientName);
+
+            ArrayList<Encounter> encounterList = new ArrayList<>();
+            encounterList.add(enc);
+            encH.setEncounters(encounterList);
+
+            patient.setEncounterHistory(encH);
+
+            patientDirectory.addPatients(patient);
+        }
+    }
+
+    private boolean updateEncounterData() {
+        int encounterId = Integer.parseInt(txtEncounterId.getText());
+        String patientName = txtPatientName.getText();
+        String encounterDate = txtEncounterDate.getText();
+        double heartRate = Double.parseDouble(txtHeartRate.getText());
+        double temperature = Double.parseDouble(txtTemperature.getText());
+        double bloodPressure = Double.parseDouble(txtBloodPressure.getText());
+        double weight = Double.parseDouble(txtWeight.getText());
+
+        Encounter enc = new Encounter();
+        VitalSigns vs = new VitalSigns();
+        EncounterHistory encH = new EncounterHistory();
+        Patient patient = new Patient();
 
         enc.setEncounterId(encounterId);
         enc.setDate(encounterDate);
@@ -77,13 +133,23 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
 
         enc.setVitalSigns(vs);
 
-        ArrayList<Encounter> encounterList = new ArrayList<>();
-        encounterList.add(enc);
-        encH.setEncounters(encounterList);
+        boolean proceed = true;
 
-        patient.setEncounterHistory(encH);
+        for (Patient pa : patientDirectory.getPatients()) {
+            if (pa.getName().equals(patientName)) {
+                int index = 0;
+                for (Encounter encounter : pa.getEncounterHistory().getEncounters()) {
+                    if (encounter.getEncounterId() == encounterId) {
+                        pa.getEncounterHistory().updateEncounters(enc, index);
+                        proceed = false;
+                        break;
+                    }
+                    index++;
+                }
+            }
+        }
 
-        return patient;
+        return proceed;
     }
 
     private void resetEncounterData() {
@@ -156,6 +222,11 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
         });
 
         update.setText("Update");
+        update.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -257,11 +328,22 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
     private void createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createActionPerformed
         // TODO add your handling code here:                                      
         int encounterId = Integer.parseInt(txtEncounterId.getText());
-        patientDirectory.addPatients(setEncounterData());
+        setEncounterData();
         JOptionPane.showMessageDialog(this, "New encounter data with encounter id : " + encounterId + " created");
         resetEncounterData();
         DoctorJFrame.refreshViewDoctorPanel(person, patientDirectory);
     }//GEN-LAST:event_createActionPerformed
+
+    private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
+        // TODO add your handling code here:
+
+        int encounterId = Integer.parseInt(txtEncounterId.getText());
+        if (updateEncounterData()) {
+            JOptionPane.showMessageDialog(this, "Existing patient with encounter id : " + encounterId + " updated");
+        }
+        resetEncounterData();
+        DoctorJFrame.refreshViewDoctorPanel(person, patientDirectory);
+    }//GEN-LAST:event_updateActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

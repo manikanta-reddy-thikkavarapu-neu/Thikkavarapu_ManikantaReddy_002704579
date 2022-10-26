@@ -48,8 +48,8 @@ public class DoctorJFrame extends javax.swing.JFrame {
         MainFrame.persistPatientData(patientDirectory);
     }
 
-    public static void setCreateDoctorPanel(Person person, PatientDirectory patientDirectory, Patient patient) {
-        doctorSplitPane1.setLeftComponent(new CreateDoctorPanel(person, patientDirectory, patient));
+    public static void setCreateDoctorPanel(Person person, PatientDirectory patientDirectory, Patient patient, int selectedRowIndex) {
+        doctorSplitPane1.setLeftComponent(new CreateDoctorPanel(person, patientDirectory, patient, selectedRowIndex));
     }
 
     /**

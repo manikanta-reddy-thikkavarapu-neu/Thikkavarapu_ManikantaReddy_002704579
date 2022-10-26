@@ -12,15 +12,6 @@ public class Patient {
 
     private String name;
     private EncounterHistory encounterHistory;
-    private Long date;
-
-    public Long getDate() {
-        return date;
-    }
-
-    public void setDate(Long date) {
-        this.date = date;
-    }
 
     public Patient() {
         this.encounterHistory = new EncounterHistory();
