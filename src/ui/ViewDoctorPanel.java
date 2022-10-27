@@ -13,6 +13,7 @@ import model.Encounter;
 import model.Patient;
 import model.PatientDirectory;
 import model.Person;
+import model.PersonDirectory;
 
 /**
  *
@@ -25,14 +26,30 @@ public class ViewDoctorPanel extends javax.swing.JPanel {
      */
     Person person;
     PatientDirectory patientDirectory;
+    PersonDirectory personDirectory;
 
-    public ViewDoctorPanel(Person person, PatientDirectory patientDirectory) {
+    public ViewDoctorPanel(Person person, PatientDirectory patientDirectory, PersonDirectory personDirectory) {
         initComponents();
         this.person = person;
         this.patientDirectory = patientDirectory;
+        this.personDirectory = personDirectory;
+        constructDoctorPatients();
         setDoctorProfileData();
-        getPatientData(jComboBox1.getSelectedItem().toString());
-        onChangeComboBox();
+    }
+
+    public void constructDoctorPatients() {
+        for (Person p : personDirectory.getPersonList()) {
+            if ((p.getRoleType() == "Patient") && (p.getHouse().getCommunity()).equals(this.person.getHouse().getCommunity())) {
+                jComboBox1.addItem(p.getFirstName() + " " + p.getLastName());
+            }
+        }
+        if (jComboBox1.getSelectedItem() != null) {
+            onChangeComboBox();
+            getPatientData(jComboBox1.getSelectedItem().toString());
+        }
+        else {
+           JOptionPane.showMessageDialog(this, "No patients available to enter their encounter details");
+        }
     }
 
     public void setDoctorProfileData() {
@@ -115,8 +132,6 @@ public class ViewDoctorPanel extends javax.swing.JPanel {
         jLabel3.setText("Community name :");
 
         txtCommunityNameValue.setText("NA");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PatientA", "PatientB", "PatientC", "PatientD" }));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

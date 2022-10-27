@@ -9,12 +9,26 @@ package model;
  * @author manikantareddythikkavarapu
  */
 public class House {
-    private String houseId;
+
+    private String id;
     private String houseNumber;
     private String street;
     private String city;
     private String country;
     private String community;
+    
+    public House() {
+        
+    }
+
+    public House(String id, String houseNumber, String street, String city, String country, String community) {
+        this.id = id;
+        this.houseNumber = houseNumber;
+        this.street = street;
+        this.city = city;
+        this.country = country;
+        this.community = community;
+    }
 
     public String getCommunity() {
         return community;
@@ -24,14 +38,14 @@ public class House {
         this.community = community;
     }
 
-    public String getHouseId() {
-        return houseId;
+    public String getId() {
+        return id;
     }
 
-    public void setHouseId(String houseId) {
-        this.houseId = houseId;
+    public void setId(String id) {
+        this.id = id;
     }
-
+    
     public String getHouseNumber() {
         return houseNumber;
     }

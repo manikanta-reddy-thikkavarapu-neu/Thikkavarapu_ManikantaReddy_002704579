@@ -7,6 +7,7 @@ package ui;
 import model.Patient;
 import model.PatientDirectory;
 import model.Person;
+import model.PersonDirectory;
 
 /**
  *
@@ -19,6 +20,7 @@ public class DoctorJFrame extends javax.swing.JFrame {
      */
     Person person;
     PatientDirectory patientDirectory;
+    static PersonDirectory personDirectory;
     static DoctorJFrame doctorJFrame;
     
 
@@ -30,16 +32,17 @@ public class DoctorJFrame extends javax.swing.JFrame {
         this.doctorJFrame = doctorJFrame;
     }
 
-    public DoctorJFrame(Person person, PatientDirectory patientDirectory) {
+    public DoctorJFrame(Person person, PatientDirectory patientDirectory, PersonDirectory personDirectory) {
         initComponents();
         this.person = person;
         this.patientDirectory = patientDirectory;
+        this.personDirectory = personDirectory;
         doctorSplitPane1 = doctorSplitPane;
 
         CreateDoctorPanel createDoctorPanel = new CreateDoctorPanel(person, patientDirectory);
         doctorSplitPane1.setLeftComponent(createDoctorPanel);
 
-        ViewDoctorPanel viewDoctorPanel = new ViewDoctorPanel(person, patientDirectory);
+        ViewDoctorPanel viewDoctorPanel = new ViewDoctorPanel(person, patientDirectory, personDirectory);
         doctorSplitPane1.setRightComponent(viewDoctorPanel);
 
     }
@@ -49,7 +52,7 @@ public class DoctorJFrame extends javax.swing.JFrame {
     }
 
     public static void refreshViewDoctorPanel(Person person, PatientDirectory patientDirectory) {
-        doctorSplitPane1.setRightComponent(new ViewDoctorPanel(person, patientDirectory));
+        doctorSplitPane1.setRightComponent(new ViewDoctorPanel(person, patientDirectory, personDirectory));
         MainFrame.persistPatientData(patientDirectory);
     }
 
