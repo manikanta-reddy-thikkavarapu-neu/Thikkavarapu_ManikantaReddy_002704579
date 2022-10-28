@@ -4,6 +4,7 @@
  */
 package ui;
 
+import javax.swing.JFrame;
 import model.CommunityDirectory;
 
 /**
@@ -110,7 +111,9 @@ public class SysAdminJFrame extends javax.swing.JFrame {
     private void btnCrtCommunityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrtCommunityActionPerformed
         // TODO add your handling code here:
         SysAdminCreateCommunitiesJFrame sysAdminCreateCommunity = new SysAdminCreateCommunitiesJFrame(communityDirectory);
+        sysAdminCreateCommunity.setExtendedState(JFrame.MAXIMIZED_BOTH);
         sysAdminCreateCommunity.setVisible(true);
+        new SysAdminCreateCommunitiesJFrame(sysAdminCreateCommunity);
     }//GEN-LAST:event_btnCrtCommunityActionPerformed
 
     /**

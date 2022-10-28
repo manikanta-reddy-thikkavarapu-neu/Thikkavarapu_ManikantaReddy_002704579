@@ -5,6 +5,7 @@
 package ui;
 
 import java.util.ArrayList;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.CommunityDirectory;
 import model.Patient;
@@ -146,6 +147,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void btnSystemAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSystemAdminActionPerformed
         // TODO add your handling code here:
         SysAdminJFrame sysAdminFrame = new SysAdminJFrame(communityDirectory);
+        sysAdminFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         sysAdminFrame.setVisible(true);
         new SysAdminJFrame(sysAdminFrame);
     }//GEN-LAST:event_btnSystemAdminActionPerformed

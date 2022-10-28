@@ -9,6 +9,7 @@ import model.CommunityDirectory;
 import model.Patient;
 import model.PatientDirectory;
 import model.Person;
+import static ui.DoctorJFrame.doctorJFrame;
 import static ui.DoctorJFrame.personDirectory;
 
 /**
@@ -21,9 +22,15 @@ public class SysAdminCreateCommunitiesJFrame extends javax.swing.JFrame {
      * Creates new form SysAdminCreateCommunitiesJFrame
      */
     CommunityDirectory communityDirectory;
+    static SysAdminCreateCommunitiesJFrame sysAdminCreateCommunitiesJFrame;
 
     public SysAdminCreateCommunitiesJFrame() {
         initComponents();
+    }
+
+    public SysAdminCreateCommunitiesJFrame(SysAdminCreateCommunitiesJFrame sysAdminCreateCommunitiesJFrame) {
+        initComponents();
+        this.sysAdminCreateCommunitiesJFrame = sysAdminCreateCommunitiesJFrame;
     }
 
     public SysAdminCreateCommunitiesJFrame(CommunityDirectory communityDirectory) {
@@ -49,6 +56,10 @@ public class SysAdminCreateCommunitiesJFrame extends javax.swing.JFrame {
 
     public static void setSysAdminViewCommunityPanel(CommunityDirectory communityDirectory, Community com) {
         splitPane1.setLeftComponent(new SysAdminCreateCommunityPanel(communityDirectory, com));
+    }
+
+    public static void closeFrame() {
+        sysAdminCreateCommunitiesJFrame.dispose();
     }
 
     /**
@@ -120,16 +131,24 @@ public class SysAdminCreateCommunitiesJFrame extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SysAdminCreateCommunitiesJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SysAdminCreateCommunitiesJFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SysAdminCreateCommunitiesJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SysAdminCreateCommunitiesJFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SysAdminCreateCommunitiesJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SysAdminCreateCommunitiesJFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SysAdminCreateCommunitiesJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SysAdminCreateCommunitiesJFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 

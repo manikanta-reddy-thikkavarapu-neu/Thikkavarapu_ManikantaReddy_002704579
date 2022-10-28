@@ -47,13 +47,13 @@ public class SysAdminCreateCommunityPanel extends javax.swing.JPanel {
         txtCommunityName.setText("");
     }
 
-    private void setCommunityData() {
+    private Community setCommunityData() {
         String communityId = txtCommunityId.getText();
         String communityName = txtCommunityName.getText();
         Community community = new Community();
         community.setId(communityId);
         community.setName(communityName);
-        communityDirectory.addCommunity(community);
+        return community;
     }
 
     /**
@@ -69,48 +69,68 @@ public class SysAdminCreateCommunityPanel extends javax.swing.JPanel {
         txtCommunityId = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtCommunityName = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        createBtn = new javax.swing.JButton();
+        updateBtn = new javax.swing.JButton();
+        backBtn = new javax.swing.JButton();
 
         jLabel1.setText("Community Id");
 
         jLabel2.setText("Community Name");
 
-        jButton1.setText("Create");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        createBtn.setText("Create");
+        createBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                createBtnActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Update");
+        updateBtn.setText("Update");
+        updateBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateBtnActionPerformed(evt);
+            }
+        });
+
+        backBtn.setText("Back");
+        backBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtCommunityId)
-                            .addComponent(txtCommunityName, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel1))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtCommunityId)
+                                    .addComponent(txtCommunityName, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(createBtn)
+                                .addGap(18, 18, 18)
+                                .addComponent(updateBtn)
+                                .addGap(62, 62, 62))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2)
-                        .addGap(62, 62, 62)))
+                        .addContainerGap()
+                        .addComponent(backBtn)))
                 .addContainerGap(83, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(77, 77, 77)
+                .addContainerGap()
+                .addComponent(backBtn)
+                .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtCommunityId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -120,28 +140,51 @@ public class SysAdminCreateCommunityPanel extends javax.swing.JPanel {
                     .addComponent(txtCommunityName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(createBtn)
+                    .addComponent(updateBtn))
                 .addContainerGap(196, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void createBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createBtnActionPerformed
         // TODO add your handling code here:
         int communityId = Integer.parseInt(txtCommunityId.getText());
-        setCommunityData();
+        communityDirectory.addCommunity(setCommunityData());
         JOptionPane.showMessageDialog(this, "New encounter data with encounter id : " + communityId + " created");
         resetCommunityData();
         SysAdminCreateCommunitiesJFrame.refreshSysAdminViewCommunityPanel(communityDirectory);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_createBtnActionPerformed
+
+    private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
+        // TODO add your handling code here:
+        SysAdminCreateCommunitiesJFrame.closeFrame();
+    }//GEN-LAST:event_backBtnActionPerformed
+
+    private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
+        // TODO add your handling code here:
+        String communityId = txtCommunityId.getText();
+        Community community = setCommunityData();
+        int index = 0;
+        for (Community com : communityDirectory.getCommunities()) {
+            if (com.getId().equals(communityId)) {
+                communityDirectory.updateCommunity(community, index);
+                break;
+            }
+            index++;
+        }
+        JOptionPane.showMessageDialog(this, "Existing community with employee id : " + communityId + " updated");
+        resetCommunityData();
+        SysAdminCreateCommunitiesJFrame.refreshSysAdminViewCommunityPanel(communityDirectory);
+    }//GEN-LAST:event_updateBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton backBtn;
+    private javax.swing.JButton createBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField txtCommunityId;
     private javax.swing.JTextField txtCommunityName;
+    private javax.swing.JButton updateBtn;
     // End of variables declaration//GEN-END:variables
 }

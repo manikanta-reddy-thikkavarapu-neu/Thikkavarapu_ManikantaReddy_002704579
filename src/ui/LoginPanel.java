@@ -5,6 +5,7 @@
 package ui;
 
 import java.util.ArrayList;
+import javax.swing.JFrame;
 import model.PatientDirectory;
 import model.Person;
 import model.PersonDirectory;
@@ -99,10 +100,12 @@ public class LoginPanel extends javax.swing.JPanel {
             if (emailAddress.equalsIgnoreCase(personObj.getEmailAddress()) && password.equalsIgnoreCase(personObj.getPassword())) {
                 if (personObj.getRoleType().equalsIgnoreCase("Patient")) {
                     PatientJFrame patient = new PatientJFrame(personObj);
+                    patient.setExtendedState(JFrame.MAXIMIZED_BOTH);
                     patient.setVisible(true);
                     new PatientJFrame(patient);
                 } else if (personObj.getRoleType().equalsIgnoreCase("Doctor")) {
                     DoctorJFrame doctor = new DoctorJFrame(personObj, patientDirectory, personDirectory);
+                    doctor.setExtendedState(JFrame.MAXIMIZED_BOTH);
                     doctor.setVisible(true);
                     new DoctorJFrame(doctor);
                 }

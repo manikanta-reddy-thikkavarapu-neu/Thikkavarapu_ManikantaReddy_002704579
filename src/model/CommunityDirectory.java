@@ -34,4 +34,8 @@ public class CommunityDirectory {
         this.communities.remove(com);
     }
 
+    public void updateCommunity(Community com, int index) {
+        this.communities.set(index, com);
+    }
+
 }
