@@ -9,12 +9,13 @@ package model;
  * @author manikantareddythikkavarapu
  */
 public class Hospital {
+
     private String hospitalID;
     private String hospitalName;
     private String community;
     private DoctorDirectory doctorDirectory;
     private String hospitalAddress;
-    
+
     public Hospital() {
         this.doctorDirectory = new DoctorDirectory();
     }
@@ -58,5 +59,10 @@ public class Hospital {
     public void setHospitalAddress(String hospitalAddress) {
         this.hospitalAddress = hospitalAddress;
     }
-    
+
+    @Override
+    public String toString() {
+        return community;
+    }
+
 }

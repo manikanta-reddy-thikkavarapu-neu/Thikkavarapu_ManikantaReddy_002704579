@@ -6,6 +6,8 @@ package ui;
 
 import javax.swing.JFrame;
 import model.CommunityDirectory;
+import model.HospitalDirectory;
+import static ui.MainFrame.hospitalDirectory;
 
 /**
  *
@@ -18,14 +20,16 @@ public class SysAdminJFrame extends javax.swing.JFrame {
      */
     static SysAdminJFrame sysadminJFrame;
     CommunityDirectory communityDirectory;
+    HospitalDirectory hospitalDirectory;
 
     public SysAdminJFrame() {
         initComponents();
     }
 
-    public SysAdminJFrame(CommunityDirectory communityDirectory) {
+    public SysAdminJFrame(CommunityDirectory communityDirectory, HospitalDirectory hospitalDirectory) {
         initComponents();
         this.communityDirectory = communityDirectory;
+        this.hospitalDirectory = hospitalDirectory;
     }
 
     public SysAdminJFrame(SysAdminJFrame sysadminJFrame) {
@@ -54,6 +58,11 @@ public class SysAdminJFrame extends javax.swing.JFrame {
         btnHosAdmin.setText("HOSPITAL ADMIN");
 
         btnComAdmin.setText("COMMUNITY ADMIN");
+        btnComAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnComAdminActionPerformed(evt);
+            }
+        });
 
         btnCrtCommunity.setText("CREATE COMMUNITIES");
         btnCrtCommunity.addActionListener(new java.awt.event.ActionListener() {
@@ -115,6 +124,14 @@ public class SysAdminJFrame extends javax.swing.JFrame {
         sysAdminCreateCommunity.setVisible(true);
         new SysAdminCreateCommunitiesJFrame(sysAdminCreateCommunity);
     }//GEN-LAST:event_btnCrtCommunityActionPerformed
+
+    private void btnComAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComAdminActionPerformed
+        // TODO add your handling code here:
+        CommunityAdminJFrame communityAdminJFrame = new CommunityAdminJFrame(hospitalDirectory);
+        communityAdminJFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        communityAdminJFrame.setVisible(true);
+        new CommunityAdminJFrame(communityAdminJFrame);
+    }//GEN-LAST:event_btnComAdminActionPerformed
 
     /**
      * @param args the command line arguments

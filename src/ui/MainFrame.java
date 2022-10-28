@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.CommunityDirectory;
+import model.HospitalDirectory;
 import model.Patient;
 import model.PatientDirectory;
 import model.Person;
@@ -25,12 +26,14 @@ public class MainFrame extends javax.swing.JFrame {
     static PersonDirectory personDirectory;
     static PatientDirectory patientDirectory;
     static CommunityDirectory communityDirectory;
+    static HospitalDirectory hospitalDirectory;
 
     public MainFrame() {
         initComponents();
         personDirectory = new PersonDirectory();
         patientDirectory = new PatientDirectory();
         communityDirectory = new CommunityDirectory();
+        hospitalDirectory = new HospitalDirectory();
     }
 
     public static void persistPatientData(PatientDirectory patientDirectory) {
@@ -39,6 +42,10 @@ public class MainFrame extends javax.swing.JFrame {
 
     public static void persistCommunityData(CommunityDirectory communityDirectory) {
         communityDirectory = communityDirectory;
+    }
+
+    public static void persistHospitalData(HospitalDirectory hospitalDirectory) {
+        hospitalDirectory = hospitalDirectory;
     }
 
     /**
@@ -146,7 +153,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void btnSystemAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSystemAdminActionPerformed
         // TODO add your handling code here:
-        SysAdminJFrame sysAdminFrame = new SysAdminJFrame(communityDirectory);
+        SysAdminJFrame sysAdminFrame = new SysAdminJFrame(communityDirectory, hospitalDirectory);
         sysAdminFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         sysAdminFrame.setVisible(true);
         new SysAdminJFrame(sysAdminFrame);
