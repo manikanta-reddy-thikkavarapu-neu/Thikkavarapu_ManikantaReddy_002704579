@@ -4,6 +4,8 @@
  */
 package ui;
 
+import model.CommunityDirectory;
+
 /**
  *
  * @author manikantareddythikkavarapu
@@ -13,21 +15,25 @@ public class SysAdminJFrame extends javax.swing.JFrame {
     /**
      * Creates new form SysAdminJFrame
      */
-    
     static SysAdminJFrame sysadminJFrame;
-    
+    CommunityDirectory communityDirectory;
+
     public SysAdminJFrame() {
         initComponents();
     }
-    
+
+    public SysAdminJFrame(CommunityDirectory communityDirectory) {
+        initComponents();
+        this.communityDirectory = communityDirectory;
+    }
+
     public SysAdminJFrame(SysAdminJFrame sysadminJFrame) {
         this.sysadminJFrame = sysadminJFrame;
     }
-    
+
 //    public static void closeFrame() {
 //        sysadminJFrame.dispose();
 //    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -49,6 +55,11 @@ public class SysAdminJFrame extends javax.swing.JFrame {
         btnComAdmin.setText("COMMUNITY ADMIN");
 
         btnCrtCommunity.setText("CREATE COMMUNITIES");
+        btnCrtCommunity.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrtCommunityActionPerformed(evt);
+            }
+        });
 
         btnBack.setText("BACK");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -95,6 +106,12 @@ public class SysAdminJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         sysadminJFrame.dispose();
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnCrtCommunityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrtCommunityActionPerformed
+        // TODO add your handling code here:
+        SysAdminCreateCommunitiesJFrame sysAdminCreateCommunity = new SysAdminCreateCommunitiesJFrame(communityDirectory);
+        sysAdminCreateCommunity.setVisible(true);
+    }//GEN-LAST:event_btnCrtCommunityActionPerformed
 
     /**
      * @param args the command line arguments

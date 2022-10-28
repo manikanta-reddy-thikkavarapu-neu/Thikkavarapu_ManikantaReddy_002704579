@@ -11,6 +11,7 @@ import java.util.ArrayList;
  * @author manikantareddythikkavarapu
  */
 public class Community {
+
     private String id;
     private String name;
     private ArrayList<House> houses;
@@ -56,5 +57,10 @@ public class Community {
     public void setPatientDirectory(PatientDirectory patientDirectory) {
         this.patientDirectory = patientDirectory;
     }
-    
+
+    @Override
+    public String toString() {
+        return id;
+    }
+
 }

@@ -6,6 +6,7 @@ package ui;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import model.CommunityDirectory;
 import model.Patient;
 import model.PatientDirectory;
 import model.Person;
@@ -22,15 +23,21 @@ public class MainFrame extends javax.swing.JFrame {
      */
     static PersonDirectory personDirectory;
     static PatientDirectory patientDirectory;
+    static CommunityDirectory communityDirectory;
 
     public MainFrame() {
         initComponents();
         personDirectory = new PersonDirectory();
         patientDirectory = new PatientDirectory();
+        communityDirectory = new CommunityDirectory();
     }
 
     public static void persistPatientData(PatientDirectory patientDirectory) {
         patientDirectory = patientDirectory;
+    }
+
+    public static void persistCommunityData(CommunityDirectory communityDirectory) {
+        communityDirectory = communityDirectory;
     }
 
     /**
@@ -138,7 +145,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void btnSystemAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSystemAdminActionPerformed
         // TODO add your handling code here:
-        SysAdminJFrame sysAdminFrame = new SysAdminJFrame();
+        SysAdminJFrame sysAdminFrame = new SysAdminJFrame(communityDirectory);
         sysAdminFrame.setVisible(true);
         new SysAdminJFrame(sysAdminFrame);
     }//GEN-LAST:event_btnSystemAdminActionPerformed

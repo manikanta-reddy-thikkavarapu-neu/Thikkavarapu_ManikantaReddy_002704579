@@ -11,25 +11,27 @@ import java.util.ArrayList;
  * @author manikantareddythikkavarapu
  */
 public class CommunityDirectory {
-    
+
     private ArrayList<Community> communities;
 
     public CommunityDirectory() {
         this.communities = new ArrayList<Community>();
     }
-    
-    public void addCommunity(Community community){
-        
+
+    public void addCommunity(Community community) {
         communities.add(community);
-       
     }
-    
+
     public ArrayList<Community> getCommunities() {
         return communities;
     }
 
     public void setCommunities(ArrayList<Community> communities) {
         this.communities = communities;
-    }  
+    }
+
+    public void deleteCommunity(Community com) {
+        this.communities.remove(com);
+    }
 
 }
