@@ -147,7 +147,7 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
             if (pa.getName().equals(patientName)) {
                 int index = 0;
                 for (Encounter encounter : pa.getEncounterHistory().getEncounters()) {
-                    if (encounter.getEncounterId() == encounterId) {
+                    if (encounter.getEncounterId().equals(encounterId)) {
                         pa.getEncounterHistory().updateEncounters(enc, index);
                         proceed = true;
                         break;
@@ -455,7 +455,7 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
             validationErrorMessagesDialog(validation1, validation2);
         }
 
-        int encounterId = Integer.parseInt(txtEncounterId.getText());
+        String encounterId = txtEncounterId.getText();
         setEncounterData();
         JOptionPane.showMessageDialog(this, "New encounter data with encounter id : " + encounterId + " created");
         resetEncounterData();
@@ -466,11 +466,23 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
 
         String encounterId = txtEncounterId.getText();
-        if (updateEncounterData()) {
-            JOptionPane.showMessageDialog(this, "Existing patient with encounter id : " + encounterId + " updated");
+
+        if (!encounterDetailsExistence()) {
+            JOptionPane.showMessageDialog(this, "You can't update the encounter details since encounter id : " + encounterId + " doesn't exist");
+        } else {
+            boolean validation1 = areDataFieldsEmpty();
+            boolean validation2 = areDataTypesCorrect();
+
+            if (!validation1 && !validation2) {
+                if (updateEncounterData()) {
+                    JOptionPane.showMessageDialog(this, "Existing patient with encounter id : " + encounterId + " updated");
+                    resetEncounterData();
+                    DoctorJFrame.refreshViewDoctorPanel(person, patientDirectory);
+                }
+            } else {
+                validationErrorMessagesDialog(validation1, validation2);
+            }
         }
-        resetEncounterData();
-        DoctorJFrame.refreshViewDoctorPanel(person, patientDirectory);
     }//GEN-LAST:event_updateActionPerformed
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
