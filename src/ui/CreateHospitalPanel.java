@@ -36,11 +36,10 @@ public class CreateHospitalPanel extends javax.swing.JPanel {
         initComponents();
         this.person = person;
         this.doctorDirectory = doctorDirectory;
-        this.personDirectory = personDirectory;
-        
+        this.personDirectory = personDirectory; 
     }
     
-    
+  
     public CreateHospitalPanel(Person person, DoctorDirectory doctorDirectory, Doctor doctor) {
         initComponents();
         this.person = person;
