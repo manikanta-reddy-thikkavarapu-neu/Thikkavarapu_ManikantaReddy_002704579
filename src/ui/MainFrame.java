@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.CommunityDirectory;
+import model.DoctorDirectory;
 import model.HospitalDirectory;
-import model.Patient;
 import model.PatientDirectory;
 import model.Person;
 import model.PersonDirectory;
@@ -19,33 +19,40 @@ import model.PersonDirectory;
  * @author manikantareddythikkavarapu
  */
 public class MainFrame extends javax.swing.JFrame {
-
+    private static PersonDirectory personDirectory;
+    static Person person;
+    static PatientDirectory patientDirectory;
+    static HospitalDirectory hospitalDirectory;
+    static CommunityDirectory communityDirectory;
+    static DoctorDirectory doctorDirectory;
+    
+    //private SysAdminJFrame sysadminJFrame;
     /**
      * Creates new form MainFrame
      */
-    static PersonDirectory personDirectory;
-    static PatientDirectory patientDirectory;
-    static CommunityDirectory communityDirectory;
-    static HospitalDirectory hospitalDirectory;
-
     public MainFrame() {
         initComponents();
         personDirectory = new PersonDirectory();
         patientDirectory = new PatientDirectory();
-        communityDirectory = new CommunityDirectory();
         hospitalDirectory = new HospitalDirectory();
+        doctorDirectory = new DoctorDirectory();
+        communityDirectory = new CommunityDirectory();
     }
-
+    
     public static void persistPatientData(PatientDirectory patientDirectory) {
         patientDirectory = patientDirectory;
     }
-
+    
+    public static void persistHospitalData(HospitalDirectory hospitalDirectory) {
+        hospitalDirectory = hospitalDirectory;
+    }
+    
     public static void persistCommunityData(CommunityDirectory communityDirectory) {
         communityDirectory = communityDirectory;
     }
-
-    public static void persistHospitalData(HospitalDirectory hospitalDirectory) {
-        hospitalDirectory = hospitalDirectory;
+    
+    public static void persistDoctorData(DoctorDirectory doctorDirectory) {
+        doctorDirectory = doctorDirectory;
     }
 
     /**
@@ -58,15 +65,19 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         SplitPane = new javax.swing.JSplitPane();
-        medicalResourceControlPanel = new javax.swing.JPanel();
+        controlPanel = new javax.swing.JPanel();
         btnRegister = new javax.swing.JButton();
         btnLogin = new javax.swing.JButton();
         btnSystemAdmin = new javax.swing.JButton();
-        medicalResourceDisplayArea = new javax.swing.JPanel();
+        workArea = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnRegister.setText("REG");
+        controlPanel.setBackground(new java.awt.Color(255, 204, 204));
+
+        btnRegister.setText("REGISTER");
         btnRegister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegisterActionPerformed(evt);
@@ -80,50 +91,71 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        btnSystemAdmin.setText("System Admin");
+        btnSystemAdmin.setText("SYSTEM ADMIN");
         btnSystemAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSystemAdminActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout medicalResourceControlPanelLayout = new javax.swing.GroupLayout(medicalResourceControlPanel);
-        medicalResourceControlPanel.setLayout(medicalResourceControlPanelLayout);
-        medicalResourceControlPanelLayout.setHorizontalGroup(
-            medicalResourceControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(medicalResourceControlPanelLayout.createSequentialGroup()
-                .addGroup(medicalResourceControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnRegister)
+        javax.swing.GroupLayout controlPanelLayout = new javax.swing.GroupLayout(controlPanel);
+        controlPanel.setLayout(controlPanelLayout);
+        controlPanelLayout.setHorizontalGroup(
+            controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(controlPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSystemAdmin)
                     .addComponent(btnLogin)
-                    .addComponent(btnSystemAdmin))
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(btnRegister))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        medicalResourceControlPanelLayout.setVerticalGroup(
-            medicalResourceControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(medicalResourceControlPanelLayout.createSequentialGroup()
-                .addGap(145, 145, 145)
+        controlPanelLayout.setVerticalGroup(
+            controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(controlPanelLayout.createSequentialGroup()
+                .addGap(139, 139, 139)
                 .addComponent(btnRegister)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnLogin)
                 .addGap(18, 18, 18)
                 .addComponent(btnSystemAdmin)
-                .addContainerGap(283, Short.MAX_VALUE))
+                .addContainerGap(556, Short.MAX_VALUE))
         );
 
-        SplitPane.setLeftComponent(medicalResourceControlPanel);
+        SplitPane.setLeftComponent(controlPanel);
 
-        javax.swing.GroupLayout medicalResourceDisplayAreaLayout = new javax.swing.GroupLayout(medicalResourceDisplayArea);
-        medicalResourceDisplayArea.setLayout(medicalResourceDisplayAreaLayout);
-        medicalResourceDisplayAreaLayout.setHorizontalGroup(
-            medicalResourceDisplayAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 657, Short.MAX_VALUE)
+        workArea.setBackground(new java.awt.Color(204, 255, 255));
+        workArea.setPreferredSize(new java.awt.Dimension(800, 800));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\siddh\\OneDrive\\Desktop\\AED2 Images\\Healthcare_AED2.jpg")); // NOI18N
+
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel2.setText("WELCOME TO MEDICAL RESOURCE MANAGER");
+
+        javax.swing.GroupLayout workAreaLayout = new javax.swing.GroupLayout(workArea);
+        workArea.setLayout(workAreaLayout);
+        workAreaLayout.setHorizontalGroup(
+            workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, workAreaLayout.createSequentialGroup()
+                .addContainerGap(41, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 753, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(workAreaLayout.createSequentialGroup()
+                .addGap(81, 81, 81)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        medicalResourceDisplayAreaLayout.setVerticalGroup(
-            medicalResourceDisplayAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 527, Short.MAX_VALUE)
+        workAreaLayout.setVerticalGroup(
+            workAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, workAreaLayout.createSequentialGroup()
+                .addContainerGap(120, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(133, 133, 133))
         );
 
-        SplitPane.setRightComponent(medicalResourceDisplayArea);
+        SplitPane.setRightComponent(workArea);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -141,21 +173,23 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         // TODO add your handling code here:
-        RegisterPanel registerPanel = new RegisterPanel(personDirectory);
+        Register registerPanel = new Register(personDirectory);
         SplitPane.setRightComponent(registerPanel);
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-        LoginPanel loginPanel = new LoginPanel(personDirectory, patientDirectory);
+        LoginPanel loginPanel = new LoginPanel(personDirectory, patientDirectory, hospitalDirectory, doctorDirectory, 
+        communityDirectory);
         SplitPane.setRightComponent(loginPanel);
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnSystemAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSystemAdminActionPerformed
         // TODO add your handling code here:
-        SysAdminJFrame sysAdminFrame = new SysAdminJFrame(communityDirectory, hospitalDirectory);
-        sysAdminFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        SysAdminJFrame sysAdminFrame = new SysAdminJFrame(communityDirectory, hospitalDirectory,doctorDirectory,
+     person, personDirectory);
         sysAdminFrame.setVisible(true);
+        sysAdminFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         new SysAdminJFrame(sysAdminFrame);
     }//GEN-LAST:event_btnSystemAdminActionPerformed
 
@@ -199,7 +233,9 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnRegister;
     private javax.swing.JButton btnSystemAdmin;
-    private javax.swing.JPanel medicalResourceControlPanel;
-    private javax.swing.JPanel medicalResourceDisplayArea;
+    private javax.swing.JPanel controlPanel;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel workArea;
     // End of variables declaration//GEN-END:variables
 }

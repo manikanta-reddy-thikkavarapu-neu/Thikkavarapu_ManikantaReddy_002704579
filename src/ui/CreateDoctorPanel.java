@@ -26,6 +26,9 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
     Person person;
     PatientDirectory patientDirectory;
     Patient patient;
+    String mainValidationString = "";
+    String validationString1 = "";
+    String validationString2 = "";
 
     public CreateDoctorPanel(Person person, PatientDirectory patientDirectory) {
         initComponents();
@@ -59,8 +62,8 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
         }
     }
 
-    private void setEncounterData() {
-        int encounterId = Integer.parseInt(txtEncounterId.getText());
+    private boolean setEncounterData() {
+        String encounterId = txtEncounterId.getText();
         String patientName = txtPatientName.getText();
         String encounterDate = txtEncounterDate.getText();
         double heartRate = Double.parseDouble(txtHeartRate.getText());
@@ -83,34 +86,39 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
 
         enc.setVitalSigns(vs);
 
-        boolean proceed = true;
+        boolean proceed = false;
 
         for (Patient pa : patientDirectory.getPatients()) {
             int index = 0;
             if (pa.getName().equals(patientName)) {
                 pa.getEncounterHistory().addEncounters(enc);
                 patientDirectory.updatePatients(pa, index);
-                proceed = false;
+                proceed = true;
                 break;
             }
             index++;
         }
 
-        if (proceed) {
-            patient.setName(patientName);
+        if (!proceed) {
+//            patient.setName(patientName);
+//
+//            ArrayList<Encounter> encounterList = new ArrayList<>();
+//            encounterList.add(enc);
+//            encH.setEncounters(encounterList);
+//
+//            patient.setEncounterHistory(encH);
+//
+//            patientDirectory.addPatients(patient);
 
-            ArrayList<Encounter> encounterList = new ArrayList<>();
-            encounterList.add(enc);
-            encH.setEncounters(encounterList);
+            JOptionPane.showMessageDialog(this, "Patient with the name : " + patientName + " don't exist in the system");
 
-            patient.setEncounterHistory(encH);
-
-            patientDirectory.addPatients(patient);
         }
+
+        return proceed;
     }
 
     private boolean updateEncounterData() {
-        int encounterId = Integer.parseInt(txtEncounterId.getText());
+        String encounterId = txtEncounterId.getText();
         String patientName = txtPatientName.getText();
         String encounterDate = txtEncounterDate.getText();
         double heartRate = Double.parseDouble(txtHeartRate.getText());
@@ -133,7 +141,7 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
 
         enc.setVitalSigns(vs);
 
-        boolean proceed = true;
+        boolean proceed = false;
 
         for (Patient pa : patientDirectory.getPatients()) {
             if (pa.getName().equals(patientName)) {
@@ -141,7 +149,7 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
                 for (Encounter encounter : pa.getEncounterHistory().getEncounters()) {
                     if (encounter.getEncounterId() == encounterId) {
                         pa.getEncounterHistory().updateEncounters(enc, index);
-                        proceed = false;
+                        proceed = true;
                         break;
                     }
                     index++;
@@ -160,6 +168,93 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
         txtTemperature.setText("");
         txtWeight.setText("");
         txtPatientName.setText("");
+    }
+
+    public boolean areDataFieldsEmpty() {
+        validationString1 = "";
+        if (txtPatientName.getText().isEmpty()) {
+            validationString1 += "Patient, ";
+        }
+        if (txtEncounterId.getText().isEmpty()) {
+            validationString1 += "Encounter Id, ";
+        }
+        if (txtEncounterDate.getText().isEmpty()) {
+            validationString1 += "EncounterDate, ";
+        }
+        if (txtBloodPressure.getText().isEmpty()) {
+            validationString1 += "Blood Pressure, ";
+        }
+        if (txtHeartRate.getText().isEmpty()) {
+            validationString1 += "Heart Rate, ";
+        }
+        if (txtTemperature.getText().isEmpty()) {
+            validationString1 += "Temperature, ";
+        }
+        if (txtWeight.getText().isEmpty()) {
+            validationString1 += "Weight, ";
+        }
+        return isNotValid(validationString1);
+    }
+
+    public boolean areDataTypesCorrect() {
+        validationString2 = "";
+        if (!validateDoubleDataType(txtBloodPressure.getText())) {
+            validationString2 += "Blood Pressure, ";
+        }
+        if (!validateDoubleDataType(txtHeartRate.getText())) {
+            validationString2 += "Heart Rate, ";
+        }
+        if (!validateDoubleDataType(txtTemperature.getText())) {
+            validationString2 += "Temperature, ";
+        }
+        if (!validateDoubleDataType(txtWeight.getText())) {
+            validationString2 += "Weight, ";
+        }
+        return isNotValid(validationString2);
+    }
+
+    public boolean isNotValid(String str) {
+        if (str.equals("")) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean validateDoubleDataType(String str) {
+        try {
+            Double.parseDouble(str);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
+    }
+
+    public void validationErrorMessagesDialog(boolean validation1, boolean validation2) {
+        if (validation1) {
+            mainValidationString = validationString1;
+            JOptionPane.showMessageDialog(this, "Please update the data for these fields: " + mainValidationString);
+        } else if (validation2) {
+            mainValidationString = validationString2;
+            JOptionPane.showMessageDialog(this, "Please enter only numbers for these fields: " + mainValidationString);
+        }
+    }
+
+    private boolean encounterDetailsExistence() {
+        String encounterId = txtEncounterId.getText();
+        boolean exist = false;
+        for (Patient pa : patientDirectory.getPatients()) {
+            if (txtPatientName.getText().equals(pa.getName())) {
+                for (Encounter enc : pa.getEncounterHistory().getEncounters()) {
+                    if (encounterId.equals(enc.getEncounterId())) {
+                        exist = true;
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+        return exist;
     }
 
     /**
@@ -340,7 +435,26 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtEncounterIdActionPerformed
 
     private void createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createActionPerformed
-        // TODO add your handling code here:                                      
+        // TODO add your handling code here:                
+
+        boolean validation1 = areDataFieldsEmpty();
+        boolean validation2 = areDataTypesCorrect();
+
+        if (!validation1 && !validation2) {
+            String encounterId = txtEncounterId.getText();
+            if (!encounterDetailsExistence()) {
+                if (setEncounterData()) {
+                    JOptionPane.showMessageDialog(this, "New encounter data with encounter id : " + encounterId + " created");
+                    resetEncounterData();
+                    DoctorJFrame.refreshViewDoctorPanel(person, patientDirectory);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Encounter details already exists with the encounter id : " + encounterId);
+            }
+        } else {
+            validationErrorMessagesDialog(validation1, validation2);
+        }
+
         int encounterId = Integer.parseInt(txtEncounterId.getText());
         setEncounterData();
         JOptionPane.showMessageDialog(this, "New encounter data with encounter id : " + encounterId + " created");
@@ -351,7 +465,7 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
         // TODO add your handling code here:
 
-        int encounterId = Integer.parseInt(txtEncounterId.getText());
+        String encounterId = txtEncounterId.getText();
         if (updateEncounterData()) {
             JOptionPane.showMessageDialog(this, "Existing patient with encounter id : " + encounterId + " updated");
         }

@@ -11,21 +11,33 @@ import java.util.ArrayList;
  * @author manikantareddythikkavarapu
  */
 public class PersonDirectory {
-    private ArrayList<Person> personList;
-
-    public ArrayList<Person> getPersonList() {
-        return personList;
-    }
-
-    public void setPersonList(ArrayList<Person> personList) {
-        this.personList = personList;
-    }
+    private ArrayList<Person> persons;
+    private Long updatedDateTime;
     
     public PersonDirectory() {
-        this.personList = new ArrayList<>();
+        this.persons = new ArrayList<Person>();
     }
     
-//    public void addPersons(Person person){
-//        personList.add(person);
-//    }
+    public Person addPersons(){
+        Person person = new Person();
+        persons.add(person);
+        
+        return person;
+    }
+    
+    public ArrayList<Person> getPersons() {
+        return persons;
+    }
+
+    public void setPersons(ArrayList<Person> persons) {
+        this.persons = persons;
+    }
+
+    public Long getUpdatedDateTime() {
+        return updatedDateTime;
+    }
+
+    public void setUpdatedDateTime(Long updatedDateTime) {
+        this.updatedDateTime = updatedDateTime;
+    }
 }

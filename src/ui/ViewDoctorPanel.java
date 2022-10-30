@@ -38,7 +38,7 @@ public class ViewDoctorPanel extends javax.swing.JPanel {
     }
 
     public void constructDoctorPatients() {
-        for (Person p : personDirectory.getPersonList()) {
+        for (Person p : personDirectory.getPersons()) {
             if ((p.getRoleType() == "Patient") && (p.getHouse().getCommunity()).equals(this.person.getHouse().getCommunity())) {
                 jComboBox1.addItem(p.getFirstName() + " " + p.getLastName());
             }

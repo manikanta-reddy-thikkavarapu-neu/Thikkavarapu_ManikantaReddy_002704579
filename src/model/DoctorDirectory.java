@@ -8,16 +8,20 @@ import java.util.ArrayList;
 
 /**
  *
- * @author manikantareddythikkavarapu
+ * @author siddh
  */
 public class DoctorDirectory {
-
     private ArrayList<Doctor> doctors;
-
+    
+    
     public DoctorDirectory() {
-        this.doctors = new ArrayList<>();
+        this.doctors = new ArrayList<Doctor>();
     }
-
+    
+    public void addDoctor(Doctor newDoctor){
+        doctors.add(newDoctor);
+    }
+    
     public ArrayList<Doctor> getDoctors() {
         return doctors;
     }
@@ -25,9 +29,13 @@ public class DoctorDirectory {
     public void setDoctors(ArrayList<Doctor> doctors) {
         this.doctors = doctors;
     }
-
-    public void addDoctor(Doctor newDoctor) {
-        doctors.add(newDoctor);
+    
+    public void updateDoctor(Doctor doc, int index) {
+        this.doctors.set(index, doc);
     }
-
+    
+    public void deleteDoctor(Doctor doc) {
+       this.doctors.remove(doc);
+    }
+    
 }

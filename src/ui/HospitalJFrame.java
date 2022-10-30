@@ -4,65 +4,73 @@
  */
 package ui;
 
+import model.Doctor;
+import model.DoctorDirectory;
 import model.Hospital;
 import model.HospitalDirectory;
+import model.Patient;
+import model.PatientDirectory;
 import model.Person;
 import model.PersonDirectory;
+import static ui.DoctorJFrame.doctorJFrame;
 
 /**
  *
- * @author manikantareddythikkavarapu
+ * @author siddh
  */
-public class CommunityAdminJFrame extends javax.swing.JFrame {
+public class HospitalJFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form CommunityAdminJFrame
+     * Creates new form HospitalJFrame
      */
     Person person;
-    HospitalDirectory hospitalDirectory;
+    DoctorDirectory doctorDirectory;
     PersonDirectory personDirectory;
-    static CommunityAdminJFrame communityAdminJFrame;
-
+    static HospitalJFrame hospitalJFrame;
     
-    public CommunityAdminJFrame() {
+    public HospitalJFrame() {
         initComponents();
     }
     
-     public CommunityAdminJFrame(CommunityAdminJFrame communityAdminJFrame) {
+    public HospitalJFrame(HospitalJFrame hospitalJFrame) {
         initComponents();
-        this.communityAdminJFrame = communityAdminJFrame;
+        this.hospitalJFrame = hospitalJFrame;
     }
-     
-     public CommunityAdminJFrame(Person person, HospitalDirectory hospitalDirectory,PersonDirectory personDirectory) {
+    
+    public HospitalJFrame(Person person, DoctorDirectory doctorDirectory, PersonDirectory personDirectory) {
         initComponents();
-        splitPane1 = splitPane;
-        this.hospitalDirectory = hospitalDirectory;
+        
+        hospitalSplitPane1 = hospitalSplitPane;
         this.person = person;
+        this.doctorDirectory= doctorDirectory;
         this.personDirectory = personDirectory;
+        
+        
 
-        CreateCommunityAdminPanel createCommunityAdminPanel = new CreateCommunityAdminPanel(person, hospitalDirectory,personDirectory);
-        splitPane1.setLeftComponent(createCommunityAdminPanel);
+        CreateHospitalPanel createHospitalPanel = new CreateHospitalPanel(person, doctorDirectory, personDirectory);
+        hospitalSplitPane1.setLeftComponent(createHospitalPanel);
 
-        ViewCommunityAdminPanel viewCommunityAdminPanel = new ViewCommunityAdminPanel(person, hospitalDirectory,personDirectory);
-        splitPane1.setRightComponent(viewCommunityAdminPanel);
+        ViewHospitalPanel viewHospitalPanel = new ViewHospitalPanel(person, doctorDirectory, personDirectory);
+        hospitalSplitPane1.setRightComponent(viewHospitalPanel);
     }
-     
-    public static void refreshCommunityAdminCreateCommunityPanel(Person person, HospitalDirectory hospitalDirectory,PersonDirectory personDirectory) {
-        splitPane1.setLeftComponent(new CreateCommunityAdminPanel(person, hospitalDirectory,personDirectory));
-    }
-
-    public static void refreshCommunityAdminViewCommunityPanel(Person person, HospitalDirectory hospitalDirectory,PersonDirectory personDirectory) {
-        splitPane1.setRightComponent(new ViewCommunityAdminPanel(person, hospitalDirectory,personDirectory));
-        MainFrame.persistHospitalData(hospitalDirectory);
-    }
-
-    public static void setCommunityAdminViewCommunityPanel(Person person, HospitalDirectory hospitalDirectory, Hospital hospital) {
-        splitPane1.setLeftComponent(new CreateCommunityAdminPanel(person, hospitalDirectory, hospital));
-    }
-
+    
     public static void closeFrame() {
-        communityAdminJFrame.dispose();
-    } 
+        hospitalJFrame.dispose();
+    }
+    
+    public static void refreshViewHospitalPanel(Person person, DoctorDirectory doctorDirectory, PersonDirectory personDirectory) {
+        hospitalSplitPane1.setRightComponent(new ViewHospitalPanel(person, doctorDirectory, personDirectory));
+        MainFrame.persistDoctorData(doctorDirectory);
+    }
+    
+    public static void refreshCreateHospitalPanel(Person person, DoctorDirectory doctorDirectory, PersonDirectory personDirectory) {
+        hospitalSplitPane1.setLeftComponent(new CreateHospitalPanel(person, doctorDirectory, personDirectory));
+        MainFrame.persistDoctorData(doctorDirectory);
+   }
+    
+    public static void setCreateDoctorPanel(Person person, DoctorDirectory doctorDirectory, Doctor doctor) {
+        hospitalSplitPane1.setLeftComponent(new CreateHospitalPanel(person, doctorDirectory, doctor));
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -73,7 +81,7 @@ public class CommunityAdminJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        splitPane = new javax.swing.JSplitPane();
+        hospitalSplitPane = new javax.swing.JSplitPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
 
@@ -90,30 +98,30 @@ public class CommunityAdminJFrame extends javax.swing.JFrame {
             .addGap(0, 800, Short.MAX_VALUE)
         );
 
-        splitPane.setLeftComponent(jPanel1);
+        hospitalSplitPane.setLeftComponent(jPanel1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 695, Short.MAX_VALUE)
+            .addGap(0, 1095, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 800, Short.MAX_VALUE)
         );
 
-        splitPane.setRightComponent(jPanel2);
+        hospitalSplitPane.setRightComponent(jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+            .addComponent(hospitalSplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 1200, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(splitPane)
+            .addComponent(hospitalSplitPane)
         );
 
         pack();
@@ -136,28 +144,28 @@ public class CommunityAdminJFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CommunityAdminJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HospitalJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CommunityAdminJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HospitalJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CommunityAdminJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HospitalJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CommunityAdminJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HospitalJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CommunityAdminJFrame().setVisible(true);
+                new HospitalJFrame().setVisible(true);
             }
         });
     }
 
-    private static javax.swing.JSplitPane splitPane1;
+    private static javax.swing.JSplitPane hospitalSplitPane1;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JSplitPane hospitalSplitPane;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JSplitPane splitPane;
     // End of variables declaration//GEN-END:variables
 }

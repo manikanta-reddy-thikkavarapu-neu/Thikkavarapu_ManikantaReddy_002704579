@@ -9,16 +9,16 @@ package model;
  * @author manikantareddythikkavarapu
  */
 public class Encounter {
-    private Integer encounterId;
+    private String encounterId;
     private String date;
     private String description;
     private VitalSigns vitalSigns;
 
-    public Integer getEncounterId() {
+    public String getEncounterId() {
         return encounterId;
     }
 
-    public void setEncounterId(Integer encounterId) {
+    public void setEncounterId(String encounterId) {
         this.encounterId = encounterId;
     }
 

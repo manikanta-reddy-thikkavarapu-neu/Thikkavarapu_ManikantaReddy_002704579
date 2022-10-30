@@ -7,9 +7,10 @@ package ui;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.Community;
 import model.Hospital;
 import model.HospitalDirectory;
+import model.Person;
+import model.PersonDirectory;
 
 /**
  *
@@ -20,15 +21,30 @@ public class ViewCommunityAdminPanel extends javax.swing.JPanel {
     /**
      * Creates new form ViewCommunityAdminPanel
      */
+    Person person;
     HospitalDirectory hospitalDirectory;
-
-    public ViewCommunityAdminPanel(HospitalDirectory hospitalDirectory) {
+    PersonDirectory personDirectory;
+    
+    public ViewCommunityAdminPanel(Person person,HospitalDirectory hospitalDirectory,PersonDirectory personDirectory) {
         initComponents();
         this.hospitalDirectory = hospitalDirectory;
-        populateHospitalTable();
+        this.person = person;
+        this.personDirectory = personDirectory;
+        setCommunityAdminProfileData();
     }
-
-    public void populateHospitalTable() {
+    
+    public void setCommunityAdminProfileData() {
+        if(person!=null){
+            lblCommunityAdminName.setText(this.person.getFirstName() + " " + this.person.getLastName());
+            lblCommunityNameValue.setText(this.person.getHouse().getCommunity());
+        } else {
+            lblCommunityAdminName.setText("NA");
+            lblCommunityNameValue.setText("NA");
+        }
+        
+    }
+    
+     public void populateHospitalTable() {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
 
@@ -42,7 +58,7 @@ public class ViewCommunityAdminPanel extends javax.swing.JPanel {
             model.addRow(row);
         }
     }
-
+     
     public void filteredHospitalTable(ArrayList<Hospital> hospitalList) {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
@@ -67,13 +83,18 @@ public class ViewCommunityAdminPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtCommunityName = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        txtCommunityName = new javax.swing.JTextField();
+        btnPopulateTable = new javax.swing.JButton();
+        btnView = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        showBtn = new javax.swing.JButton();
-        viewBtn = new javax.swing.JButton();
-        deleteBtn = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        lblCommunityAdminName = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        lblCommunityNameValue = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -95,93 +116,128 @@ public class ViewCommunityAdminPanel extends javax.swing.JPanel {
             }
         });
         jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
-        }
 
-        jLabel1.setText("Community Name");
-
-        showBtn.setText("Show");
-        showBtn.addActionListener(new java.awt.event.ActionListener() {
+        btnPopulateTable.setText("POPULATE TABLE");
+        btnPopulateTable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                showBtnActionPerformed(evt);
+                btnPopulateTableActionPerformed(evt);
             }
         });
 
-        viewBtn.setText("View");
-        viewBtn.addActionListener(new java.awt.event.ActionListener() {
+        btnView.setText("VIEW");
+        btnView.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewBtnActionPerformed(evt);
+                btnViewActionPerformed(evt);
             }
         });
 
-        deleteBtn.setText("Delete");
-        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
+        btnDelete.setText("DELETE");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteBtnActionPerformed(evt);
+                btnDeleteActionPerformed(evt);
             }
         });
+
+        jLabel1.setText("Enter Community Name :");
+
+        jLabel2.setText("Community Admin Name :");
+
+        lblCommunityAdminName.setText("NA");
+
+        jLabel3.setText("Community Name :");
+
+        lblCommunityNameValue.setText("NA");
+
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel4.setText("COMMUNITY ADMIN DETAILS :");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 64, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(txtCommunityName, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnPopulateTable)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblCommunityNameValue, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(107, 107, 107))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1))
+                        .addGap(170, 170, 170)
+                        .addComponent(btnView)
+                        .addGap(72, 72, 72)
+                        .addComponent(btnDelete))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(52, 52, 52)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(235, 235, 235)
-                                .addComponent(jLabel1)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtCommunityName, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(showBtn))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(255, 255, 255)
-                                .addComponent(viewBtn)
-                                .addGap(18, 18, 18)
-                                .addComponent(deleteBtn)))
-                        .addGap(0, 220, Short.MAX_VALUE)))
-                .addContainerGap())
+                                .addComponent(lblCommunityAdminName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(298, 298, 298))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(158, 158, 158)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(22, 22, 22)
+                .addComponent(jLabel4)
+                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCommunityName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(showBtn))
-                .addGap(29, 29, 29)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(lblCommunityAdminName)
+                    .addComponent(jLabel3)
+                    .addComponent(lblCommunityNameValue))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(viewBtn)
-                    .addComponent(deleteBtn))
-                .addContainerGap(284, Short.MAX_VALUE))
+                    .addComponent(btnPopulateTable)
+                    .addComponent(txtCommunityName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnView)
+                    .addComponent(btnDelete))
+                .addContainerGap(172, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void showBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showBtnActionPerformed
+    private void btnPopulateTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPopulateTableActionPerformed
         // TODO add your handling code here:
         String communityName = txtCommunityName.getText();
-        ArrayList<Hospital> hospitalList = new ArrayList<>();
-        for (Hospital hospital : hospitalDirectory.getHospitals()) {
-            if (hospital.getCommunity().equals(communityName)) {
-                hospitalList.add(hospital);
-            }
+        if (communityName.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter code");
         }
-        filteredHospitalTable(hospitalList);
-    }//GEN-LAST:event_showBtnActionPerformed
+      
+        if (this.person != null && !(this.person.getAssCommunity().equalsIgnoreCase(txtCommunityName.getText())) && this.person.getRoleType() == "Community Admin") {
+            JOptionPane.showMessageDialog(this, "Restricted Access");
+        } else {
+            ArrayList<Hospital> hospitalList = new ArrayList<>();
+            for (Hospital hospital : hospitalDirectory.getHospitals()) {
+                if (hospital.getCommunity().equals(communityName)) {
+                    hospitalList.add(hospital);
+                }
+            }
+            filteredHospitalTable(hospitalList);
+        }
 
-    private void viewBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewBtnActionPerformed
+
+    }//GEN-LAST:event_btnPopulateTableActionPerformed
+
+    private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
         // TODO add your handling code here:
         int selectedRowIndex = jTable1.getSelectedRow();
         if (selectedRowIndex < 0) {
@@ -190,10 +246,11 @@ public class ViewCommunityAdminPanel extends javax.swing.JPanel {
         }
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         Hospital selectedHospital = (Hospital) model.getValueAt(selectedRowIndex, 0);
-        CommunityAdminJFrame.setCommunityAdminViewCommunityPanel(hospitalDirectory, selectedHospital);
-    }//GEN-LAST:event_viewBtnActionPerformed
+        CommunityAdminJFrame.setCommunityAdminViewCommunityPanel(person,hospitalDirectory, selectedHospital);
+        
+    }//GEN-LAST:event_btnViewActionPerformed
 
-    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
         int selectedRowIndex = jTable1.getSelectedRow();
         if (selectedRowIndex < 0) {
@@ -205,17 +262,23 @@ public class ViewCommunityAdminPanel extends javax.swing.JPanel {
         hospitalDirectory.deleteHospital(selectedHospital);
         JOptionPane.showMessageDialog(this, "Hospital deleted");
         populateHospitalTable();
-        CommunityAdminJFrame.refreshCommunityAdminCreateCommunityPanel(hospitalDirectory);
-    }//GEN-LAST:event_deleteBtnActionPerformed
+        txtCommunityName.setText("");
+        CommunityAdminJFrame.refreshCommunityAdminCreateCommunityPanel(person,hospitalDirectory,personDirectory);
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton deleteBtn;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnPopulateTable;
+    private javax.swing.JButton btnView;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JButton showBtn;
+    private javax.swing.JLabel lblCommunityAdminName;
+    private javax.swing.JLabel lblCommunityNameValue;
     private javax.swing.JTextField txtCommunityName;
-    private javax.swing.JButton viewBtn;
     // End of variables declaration//GEN-END:variables
 }

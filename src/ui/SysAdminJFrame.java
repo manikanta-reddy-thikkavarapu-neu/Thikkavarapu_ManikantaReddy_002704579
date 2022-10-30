@@ -6,8 +6,10 @@ package ui;
 
 import javax.swing.JFrame;
 import model.CommunityDirectory;
+import model.DoctorDirectory;
 import model.HospitalDirectory;
-import static ui.MainFrame.hospitalDirectory;
+import model.Person;
+import model.PersonDirectory;
 
 /**
  *
@@ -18,27 +20,36 @@ public class SysAdminJFrame extends javax.swing.JFrame {
     /**
      * Creates new form SysAdminJFrame
      */
+    
     static SysAdminJFrame sysadminJFrame;
     CommunityDirectory communityDirectory;
     HospitalDirectory hospitalDirectory;
-
+    DoctorDirectory doctorDirectory;
+    Person person;
+    PersonDirectory personDirectory;
+    
     public SysAdminJFrame() {
         initComponents();
     }
-
-    public SysAdminJFrame(CommunityDirectory communityDirectory, HospitalDirectory hospitalDirectory) {
-        initComponents();
-        this.communityDirectory = communityDirectory;
-        this.hospitalDirectory = hospitalDirectory;
-    }
-
+    
     public SysAdminJFrame(SysAdminJFrame sysadminJFrame) {
         this.sysadminJFrame = sysadminJFrame;
     }
-
+    
+    public SysAdminJFrame(CommunityDirectory communityDirectory, HospitalDirectory hospitalDirectory,DoctorDirectory doctorDirectory,
+    Person person, PersonDirectory personDirectory) {
+        initComponents();
+        this.communityDirectory = communityDirectory;
+        this.hospitalDirectory = hospitalDirectory;
+        this.doctorDirectory = doctorDirectory;
+        this.person = person;
+        this.personDirectory = personDirectory;
+    }
+    
 //    public static void closeFrame() {
 //        sysadminJFrame.dispose();
 //    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -52,10 +63,16 @@ public class SysAdminJFrame extends javax.swing.JFrame {
         btnComAdmin = new javax.swing.JButton();
         btnCrtCommunity = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnHosAdmin.setText("HOSPITAL ADMIN");
+        btnHosAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHosAdminActionPerformed(evt);
+            }
+        });
 
         btnComAdmin.setText("COMMUNITY ADMIN");
         btnComAdmin.addActionListener(new java.awt.event.ActionListener() {
@@ -78,35 +95,37 @@ public class SysAdminJFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel1.setText("SYSTEM ADMINISTRATOR PAGE :");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(105, 105, 105)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(232, 232, 232)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnHosAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnComAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnCrtCommunity, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(274, 274, 274)
-                        .addComponent(btnBack)))
-                .addContainerGap(242, Short.MAX_VALUE))
+                    .addComponent(btnBack)
+                    .addComponent(btnHosAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnComAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCrtCommunity))
+                .addContainerGap(228, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(101, 101, 101)
+                .addGap(36, 36, 36)
+                .addComponent(jLabel1)
+                .addGap(36, 36, 36)
                 .addComponent(btnHosAdmin)
-                .addGap(45, 45, 45)
+                .addGap(36, 36, 36)
                 .addComponent(btnComAdmin)
                 .addGap(38, 38, 38)
                 .addComponent(btnCrtCommunity)
-                .addGap(35, 35, 35)
+                .addGap(43, 43, 43)
                 .addComponent(btnBack)
-                .addContainerGap(156, Short.MAX_VALUE))
+                .addContainerGap(165, Short.MAX_VALUE))
         );
 
         pack();
@@ -117,6 +136,14 @@ public class SysAdminJFrame extends javax.swing.JFrame {
         sysadminJFrame.dispose();
     }//GEN-LAST:event_btnBackActionPerformed
 
+    private void btnComAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComAdminActionPerformed
+        // TODO add your handling code here:
+        CommunityAdminJFrame communityAdminJFrame = new CommunityAdminJFrame(person, hospitalDirectory, personDirectory);
+        communityAdminJFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        communityAdminJFrame.setVisible(true);
+        new CommunityAdminJFrame(communityAdminJFrame);
+    }//GEN-LAST:event_btnComAdminActionPerformed
+
     private void btnCrtCommunityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrtCommunityActionPerformed
         // TODO add your handling code here:
         SysAdminCreateCommunitiesJFrame sysAdminCreateCommunity = new SysAdminCreateCommunitiesJFrame(communityDirectory);
@@ -125,13 +152,13 @@ public class SysAdminJFrame extends javax.swing.JFrame {
         new SysAdminCreateCommunitiesJFrame(sysAdminCreateCommunity);
     }//GEN-LAST:event_btnCrtCommunityActionPerformed
 
-    private void btnComAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComAdminActionPerformed
+    private void btnHosAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHosAdminActionPerformed
         // TODO add your handling code here:
-        CommunityAdminJFrame communityAdminJFrame = new CommunityAdminJFrame(hospitalDirectory);
-        communityAdminJFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        communityAdminJFrame.setVisible(true);
-        new CommunityAdminJFrame(communityAdminJFrame);
-    }//GEN-LAST:event_btnComAdminActionPerformed
+        HospitalJFrame hospitalJFrame = new HospitalJFrame(person, doctorDirectory, personDirectory);
+        hospitalJFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        hospitalJFrame.setVisible(true);
+        new HospitalJFrame(hospitalJFrame);
+    }//GEN-LAST:event_btnHosAdminActionPerformed
 
     /**
      * @param args the command line arguments
@@ -173,5 +200,6 @@ public class SysAdminJFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnComAdmin;
     private javax.swing.JButton btnCrtCommunity;
     private javax.swing.JButton btnHosAdmin;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

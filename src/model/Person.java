@@ -9,30 +9,50 @@ package model;
  * @author manikantareddythikkavarapu
  */
 public class Person {
-    private Long personId;
+    private String personId;
     private String firstName;
     private String lastName;
-    private String emailAddress;
+    private String userName;
     private String password;
-    private Integer age;
+    private int age;
     private Long phoneNumber;
-    private Boolean isLogged;
-    private String roleType;
     private House house;
+//    private Boolean isPatient;
+//    private Boolean isDoctor;
+    private String roleType;
+    private String assHospital;
+    private String assCommunity;
 
-    public House getHouse() {
-        return house;
+    public String getRoleType() {
+        return roleType;
     }
 
-    public void setHouse(House house) {
-        this.house = house;
+    public void setRoleType(String roleType) {
+        this.roleType = roleType;
     }
 
-    public Long getPersonId() {
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
+    public String getPersonId() {
         return personId;
     }
 
-    public void setPersonId(Long personId) {
+    public void setPersonId(String personId) {
         this.personId = personId;
     }
 
@@ -52,27 +72,11 @@ public class Person {
         this.lastName = lastName;
     }
 
-    public String getEmailAddress() {
-        return emailAddress;
-    }
-
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Integer getAge() {
+    public int getAge() {
         return age;
     }
 
-    public void setAge(Integer age) {
+    public void setAge(int age) {
         this.age = age;
     }
 
@@ -83,20 +87,39 @@ public class Person {
     public void setPhoneNumber(Long phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
-    public Boolean getIsLogged() {
-        return isLogged;
+    
+    
+    public House getHouse() {
+        return house;
     }
 
-    public void setIsLogged(Boolean isLogged) {
-        this.isLogged = isLogged;
+    public void setHouse(House house) {
+        this.house = house;
+    }
+    
+    
+//
+//    public Boolean getIsPatient() {
+//        return isPatient;
+//    }
+//
+//    public void setIsPatient(Boolean isPatient) {
+//        this.isPatient = isPatient;
+//    }
+
+    public String getAssHospital() {
+        return assHospital;
     }
 
-    public String getRoleType() {
-        return roleType;
+    public void setAssHospital(String assHospital) {
+        this.assHospital = assHospital;
     }
 
-    public void setRoleType(String roleType) {
-        this.roleType = roleType;
+    public String getAssCommunity() {
+        return assCommunity;
+    }
+
+    public void setAssCommunity(String assCommunity) {
+        this.assCommunity = assCommunity;
     }
 }
