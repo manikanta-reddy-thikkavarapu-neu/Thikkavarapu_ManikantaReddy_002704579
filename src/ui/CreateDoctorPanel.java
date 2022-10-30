@@ -431,7 +431,6 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
 
     private void createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createActionPerformed
         // TODO add your handling code here:                
-
         boolean validation1 = areDataFieldsEmpty();
         boolean validation2 = areDataTypesCorrect();
 

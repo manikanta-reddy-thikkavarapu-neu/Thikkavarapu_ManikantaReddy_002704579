@@ -224,8 +224,7 @@ public class ViewCommunityAdminPanel extends javax.swing.JPanel {
         if (communityName.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter code");
         }
-      
-        if (this.person != null && !(this.person.getAssCommunity().equalsIgnoreCase(txtCommunityName.getText())) && this.person.getRoleType() == "Community Admin") {
+        else if (this.person != null && !(this.person.getAssCommunity().equalsIgnoreCase(txtCommunityName.getText())) && this.person.getRoleType() == "Community Admin") {
             JOptionPane.showMessageDialog(this, "Restricted Access");
         } else {
             ArrayList<Hospital> hospitalList = new ArrayList<>();
