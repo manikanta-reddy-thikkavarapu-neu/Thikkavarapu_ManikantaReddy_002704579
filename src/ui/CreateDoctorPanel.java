@@ -100,18 +100,7 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
         }
 
         if (!proceed) {
-//            patient.setName(patientName);
-//
-//            ArrayList<Encounter> encounterList = new ArrayList<>();
-//            encounterList.add(enc);
-//            encH.setEncounters(encounterList);
-//
-//            patient.setEncounterHistory(encH);
-//
-//            patientDirectory.addPatients(patient);
-
             JOptionPane.showMessageDialog(this, "Patient with the name : " + patientName + " don't exist in the system");
-
         }
 
         return proceed;
@@ -142,6 +131,7 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
         enc.setVitalSigns(vs);
 
         boolean proceed = false;
+        boolean patientCheck = false;
 
         for (Patient pa : patientDirectory.getPatients()) {
             if (pa.getName().equals(patientName)) {
@@ -154,7 +144,12 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
                     }
                     index++;
                 }
+                patientCheck = true;
             }
+        }
+
+        if (!patientCheck) {
+            JOptionPane.showMessageDialog(this, "Patient with the name : " + patientName + " don't exist in the system");
         }
 
         return proceed;
@@ -461,21 +456,21 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
 
         String encounterId = txtEncounterId.getText();
 
-        if (!encounterDetailsExistence()) {
-            JOptionPane.showMessageDialog(this, "You can't update the encounter details since encounter id : " + encounterId + " doesn't exist");
-        } else {
-            boolean validation1 = areDataFieldsEmpty();
-            boolean validation2 = areDataTypesCorrect();
+        boolean validation1 = areDataFieldsEmpty();
+        boolean validation2 = areDataTypesCorrect();
 
-            if (!validation1 && !validation2) {
+        if (!validation1 && !validation2) {
+            if (!encounterDetailsExistence()) {
+                JOptionPane.showMessageDialog(this, "You can't update the encounter details since encounter id : " + encounterId + " doesn't exist");
+            } else {
                 if (updateEncounterData()) {
                     JOptionPane.showMessageDialog(this, "Existing patient with encounter id : " + encounterId + " updated");
                     resetEncounterData();
                     DoctorJFrame.refreshViewDoctorPanel(person, patientDirectory);
                 }
-            } else {
-                validationErrorMessagesDialog(validation1, validation2);
             }
+        } else {
+            validationErrorMessagesDialog(validation1, validation2);
         }
     }//GEN-LAST:event_updateActionPerformed
 

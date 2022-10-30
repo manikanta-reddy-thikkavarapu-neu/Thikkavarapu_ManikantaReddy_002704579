@@ -50,8 +50,8 @@ public class SysAdminCreateCommunitiesJFrame extends javax.swing.JFrame {
     }
 
     public static void refreshSysAdminViewCommunityPanel(CommunityDirectory communityDirectory) {
-        splitPane1.setRightComponent(new SysAdminViewCommunityPanel(communityDirectory));
         MainFrame.persistCommunityData(communityDirectory);
+        splitPane1.setRightComponent(new SysAdminViewCommunityPanel(communityDirectory));
     }
 
     public static void setSysAdminViewCommunityPanel(CommunityDirectory communityDirectory, Community com) {

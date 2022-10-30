@@ -15,7 +15,7 @@ import static ui.MainFrame.patientDirectory;
 
 /**
  *
- * @author siddh
+ * @author manikantareddythikkavarapu
  */
 public class Register extends javax.swing.JPanel {
 

@@ -22,12 +22,11 @@ public class DoctorJFrame extends javax.swing.JFrame {
     PatientDirectory patientDirectory;
     static PersonDirectory personDirectory;
     static DoctorJFrame doctorJFrame;
-    
 
     public DoctorJFrame() {
         initComponents();
     }
-    
+
     public DoctorJFrame(DoctorJFrame doctorJFrame) {
         this.doctorJFrame = doctorJFrame;
     }
@@ -52,13 +51,13 @@ public class DoctorJFrame extends javax.swing.JFrame {
     }
 
     public static void refreshViewDoctorPanel(Person person, PatientDirectory patientDirectory) {
-        doctorSplitPane1.setRightComponent(new ViewDoctorPanel(person, patientDirectory, personDirectory));
         MainFrame.persistPatientData(patientDirectory);
+        doctorSplitPane1.setRightComponent(new ViewDoctorPanel(person, patientDirectory, personDirectory));
     }
 
     public static void refreshCreateDoctorPanel(Person person, PatientDirectory patientDirectory) {
-        doctorSplitPane1.setLeftComponent(new CreateDoctorPanel(person, patientDirectory));
         MainFrame.persistPatientData(patientDirectory);
+        doctorSplitPane1.setLeftComponent(new CreateDoctorPanel(person, patientDirectory));
     }
 
     public static void setCreateDoctorPanel(Person person, PatientDirectory patientDirectory, Patient patient, int selectedRowIndex) {
