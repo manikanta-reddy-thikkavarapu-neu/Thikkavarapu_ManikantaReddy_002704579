@@ -253,10 +253,8 @@ public class ViewHospitalPanel extends javax.swing.JPanel {
         
         doctorDirectory.deleteDoctor(selectedDoctor);
         JOptionPane.showMessageDialog(this, "Doctor deleted"); 
-        populateDoctorTable();
+        btnPopulateActionPerformed(evt);
         HospitalJFrame.refreshCreateHospitalPanel(person, doctorDirectory, personDirectory);
-        txtHospId.setText("");
-        
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnPopulateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPopulateActionPerformed
