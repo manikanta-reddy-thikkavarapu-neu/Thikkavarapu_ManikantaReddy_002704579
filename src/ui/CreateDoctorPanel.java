@@ -454,12 +454,6 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
         } else {
             validationErrorMessagesDialog(validation1, validation2);
         }
-
-        String encounterId = txtEncounterId.getText();
-        setEncounterData();
-        JOptionPane.showMessageDialog(this, "New encounter data with encounter id : " + encounterId + " created");
-        resetEncounterData();
-        DoctorJFrame.refreshViewDoctorPanel(person, patientDirectory);
     }//GEN-LAST:event_createActionPerformed
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed

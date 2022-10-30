@@ -7,22 +7,28 @@ package ui;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import model.House;
+import model.Patient;
+import model.PatientDirectory;
 import model.Person;
 import model.PersonDirectory;
+import static ui.MainFrame.patientDirectory;
 
 /**
  *
  * @author siddh
  */
 public class Register extends javax.swing.JPanel {
+
     private PersonDirectory personDirectory;
-    
+    PatientDirectory patientDirectory;
+
     /**
      * Creates new form Register
      */
-    public Register(PersonDirectory personDirectory) {
+    public Register(PersonDirectory personDirectory, PatientDirectory patientDirectory) {
         initComponents();
         this.personDirectory = personDirectory;
+        this.patientDirectory = patientDirectory;
         txtAssCommunity.setVisible(false);
         txtAssHospital.setVisible(false);
         lblAssCommunity.setVisible(false);
@@ -248,7 +254,7 @@ public class Register extends javax.swing.JPanel {
         // TODO add your handling code here:
         Person person = new Person();
         House house = new House();
-        
+
         String firstName = "";
         String lastName = "";
         String userName = "";
@@ -263,97 +269,94 @@ public class Register extends javax.swing.JPanel {
         String assHospital = "";
         String assCommunity = "";
         Boolean flag = true;
-        
-         if(txtFName.getText().isEmpty() || txtFName.getText().isBlank()){
+
+        if (txtFName.getText().isEmpty() || txtFName.getText().isBlank()) {
             flag = false;
-        } else { 
+        } else {
             firstName = txtFName.getText();
         }
-         
-         if(txtLName.getText().isEmpty() || txtLName.getText().isBlank()){
+
+        if (txtLName.getText().isEmpty() || txtLName.getText().isBlank()) {
             flag = false;
-        } else { 
+        } else {
             lastName = txtLName.getText();
         }
-         
-        if(txtUserName.getText().isEmpty() || txtUserName.getText().isBlank()){
+
+        if (txtUserName.getText().isEmpty() || txtUserName.getText().isBlank()) {
             flag = false;
-        } else { 
+        } else {
             userName = txtUserName.getText();
         }
-        
-        if(txtPassword.getText().isEmpty() || txtPassword.getText().isBlank()){
+
+        if (txtPassword.getText().isEmpty() || txtPassword.getText().isBlank()) {
             flag = false;
-        } else { 
+        } else {
             password = txtPassword.getText();
         }
-        
-        if(txtStreetAddress.getText().isEmpty() || txtStreetAddress.getText().isBlank()){
+
+        if (txtStreetAddress.getText().isEmpty() || txtStreetAddress.getText().isBlank()) {
             flag = false;
-        } else { 
+        } else {
             streetAddress = txtStreetAddress.getText();
         }
-        
-        if(txtApartmentNumber.getText().isEmpty() || txtApartmentNumber.getText().isBlank()){
+
+        if (txtApartmentNumber.getText().isEmpty() || txtApartmentNumber.getText().isBlank()) {
             flag = false;
-        } else { 
+        } else {
             apartmentNumber = txtApartmentNumber.getText();
         }
-        
-        if(txtCommunity.getText().isEmpty() || txtCommunity.getText().isBlank()){
+
+        if (txtCommunity.getText().isEmpty() || txtCommunity.getText().isBlank()) {
             flag = false;
-        } else { 
+        } else {
             community = txtCommunity.getText();
         }
-        
-        if(txtCity.getText().isEmpty() || txtCity.getText().isBlank()){
+
+        if (txtCity.getText().isEmpty() || txtCity.getText().isBlank()) {
             flag = false;
-        } else { 
+        } else {
             city = txtCity.getText();
         }
-        
-       
-        
-        if(validateAge(txtAge.getText()) == null){
+
+        if (validateAge(txtAge.getText()) == null) {
             flag = false;
-        } else { 
+        } else {
             age = validateAge(txtAge.getText());
         }
-        
-        if(validatePhoneNumber(txtPhoneNumber.getText()) == null){
+
+        if (validatePhoneNumber(txtPhoneNumber.getText()) == null) {
             flag = false;
-        } else { 
+        } else {
             phoneNumber = validatePhoneNumber(txtPhoneNumber.getText());
         }
-        
-        String roleType = (String)cmbRole.getSelectedItem();
-        
-         if(txtAssHospital.getText().isEmpty() && roleType.equalsIgnoreCase("Hospital Admin")){
+
+        String roleType = (String) cmbRole.getSelectedItem();
+
+        if (txtAssHospital.getText().isEmpty() && roleType.equalsIgnoreCase("Hospital Admin")) {
             flag = false;
-        } else { 
+        } else {
             assHospital = txtAssHospital.getText();
         }
-         
-          if(txtAssCommunity.getText().isEmpty() && roleType.equalsIgnoreCase("Community Admin")){
+
+        if (txtAssCommunity.getText().isEmpty() && roleType.equalsIgnoreCase("Community Admin")) {
             flag = false;
-        } else { 
+        } else {
             assCommunity = txtAssCommunity.getText();
         }
-        
-        if(flag == false){
+
+        if (flag == false) {
             JOptionPane.showMessageDialog(this, "Please enter all details !");
             clearAllFields();
             return;
         }
-        
-        for(Person p: personDirectory.getPersons()){
-            if(userName.equals(p.getUserName()))
-            {
+
+        for (Person p : personDirectory.getPersons()) {
+            if (userName.equals(p.getUserName())) {
                 JOptionPane.showMessageDialog(this, "Person already exists !");
                 return;
             }
         }
-        
+
         person.setFirstName(firstName);
         person.setLastName(lastName);
         person.setUserName(userName);
@@ -363,18 +366,26 @@ public class Register extends javax.swing.JPanel {
         person.setPhoneNumber(phoneNumber);
         person.setAssCommunity(assCommunity);
         person.setAssHospital(assHospital);
-        
+
         house.setCity(city);
         house.setCountry("USA");
         house.setHouseNumber(apartmentNumber);
         house.setStreet(streetAddress);
         house.setCommunity(community);
-        
+
         person.setHouse(house);
         ArrayList<Person> persons = personDirectory.getPersons();
         persons.add(person);
         personDirectory.setPersons(persons);
-        
+
+        Patient pa = new Patient();
+
+        pa.setName(firstName + " " + lastName);
+
+        if (person.getRoleType().equals("Patient")) {
+            patientDirectory.addPatients(pa);
+        }
+
         JOptionPane.showMessageDialog(this, "Profile successfully added !");
         clearAllFields();
         System.out.println(personDirectory.getPersons().size());
@@ -382,13 +393,13 @@ public class Register extends javax.swing.JPanel {
 
     private void cmbRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRoleActionPerformed
         // TODO add your handling code here:
-        String roleType = (String)cmbRole.getSelectedItem();
-        if(roleType == "Hospital Admin"){
+        String roleType = (String) cmbRole.getSelectedItem();
+        if (roleType == "Hospital Admin") {
             txtAssHospital.setVisible(true);
             lblAssHospital.setVisible(true);
-             txtAssCommunity.setVisible(false);
+            txtAssCommunity.setVisible(false);
             lblAssCommunity.setVisible(false);
-        } else if(roleType == "Community Admin"){
+        } else if (roleType == "Community Admin") {
             txtAssCommunity.setVisible(true);
             lblAssCommunity.setVisible(true);
             txtAssHospital.setVisible(false);
@@ -401,37 +412,34 @@ public class Register extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_cmbRoleActionPerformed
 
-        private Integer validateAge(String age){
-        try{
+    private Integer validateAge(String age) {
+        try {
             return Integer.parseInt(age);
-        }
-        catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Invalid Age!");
             return null;
         }
     }
-        
-         private Long validatePhoneNumber(String phoneNumber)
-    {
-        try{
-                return Long.parseLong(phoneNumber);
-        }
-        catch(NumberFormatException e){
+
+    private Long validatePhoneNumber(String phoneNumber) {
+        try {
+            return Long.parseLong(phoneNumber);
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Invalid Phone Number!");
             return null;
         }
-        
+
     }
-         private Long validatePersonID(String personId){
-        try{
+
+    private Long validatePersonID(String personId) {
+        try {
             return Long.parseLong(personId);
-        }
-        catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Invalid SSN!");
             return null;
         }
     }
-         
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegister;
     private javax.swing.JComboBox<String> cmbRole;
@@ -479,8 +487,7 @@ public class Register extends javax.swing.JPanel {
         txtAssCommunity.setText("");
         txtAssHospital.setText("");
         txtpersonId.setText("");
-        
-    }
 
+    }
 
 }
