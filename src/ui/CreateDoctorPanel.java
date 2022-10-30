@@ -50,7 +50,7 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
         for (Encounter enc : this.patient.getEncounterHistory().getEncounters()) {
             if (index == selectedRowIndex) {
                 txtEncounterId.setText(enc.getEncounterId().toString());
-                txtEncounterDate.setText(enc.getDate());
+                txtEncounterDate.setDate(enc.getDate());
                 txtBloodPressure.setText(Double.toString(enc.getVitalSigns().getBloodPressure()));
                 txtHeartRate.setText(Double.toString(enc.getVitalSigns().getHeartRate()));
                 txtTemperature.setText(Double.toString(enc.getVitalSigns().getTemperature()));
@@ -65,7 +65,7 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
     private boolean setEncounterData() {
         String encounterId = txtEncounterId.getText();
         String patientName = txtPatientName.getText();
-        String encounterDate = txtEncounterDate.getText();
+        Date encounterDate = txtEncounterDate.getDate();
         double heartRate = Double.parseDouble(txtHeartRate.getText());
         double temperature = Double.parseDouble(txtTemperature.getText());
         double bloodPressure = Double.parseDouble(txtBloodPressure.getText());
@@ -109,7 +109,7 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
     private boolean updateEncounterData() {
         String encounterId = txtEncounterId.getText();
         String patientName = txtPatientName.getText();
-        String encounterDate = txtEncounterDate.getText();
+        Date encounterDate = txtEncounterDate.getDate();
         double heartRate = Double.parseDouble(txtHeartRate.getText());
         double temperature = Double.parseDouble(txtTemperature.getText());
         double bloodPressure = Double.parseDouble(txtBloodPressure.getText());
@@ -157,7 +157,7 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
 
     private void resetEncounterData() {
         txtEncounterId.setText("");
-        txtEncounterDate.setText("");
+        txtEncounterDate.setDate(null);
         txtBloodPressure.setText("");
         txtHeartRate.setText("");
         txtTemperature.setText("");
@@ -173,7 +173,7 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
         if (txtEncounterId.getText().isEmpty()) {
             validationString1 += "Encounter Id, ";
         }
-        if (txtEncounterDate.getText().isEmpty()) {
+        if (txtEncounterDate.getDate() == null) {
             validationString1 += "EncounterDate, ";
         }
         if (txtBloodPressure.getText().isEmpty()) {
@@ -264,7 +264,6 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         txtPatientName = new javax.swing.JTextField();
         txtEncounterId = new javax.swing.JTextField();
-        txtEncounterDate = new javax.swing.JTextField();
         txtHeartRate = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -278,6 +277,7 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
         create = new javax.swing.JButton();
         update = new javax.swing.JButton();
         backBtn = new javax.swing.JButton();
+        txtEncounterDate = new com.toedter.calendar.JDateChooser();
 
         jLabel1.setText("Patient Name");
 
@@ -332,49 +332,55 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(73, 73, 73)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(41, 41, 41)
-                                .addComponent(jLabel7)
+                                .addGap(8, 8, 8)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(41, 41, 41)
+                                        .addComponent(jLabel7)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtWeight, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(create)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(update)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addGap(26, 26, 26)
+                                        .addComponent(txtTemperature))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtWeight, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE))
+                                .addComponent(txtBloodPressure))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(create)
-                                .addGap(18, 18, 18)
-                                .addComponent(update)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(26, 26, 26)
-                                .addComponent(txtTemperature))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(jLabel1)
+                                        .addGap(18, 18, 18))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addGap(34, 34, 34)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtPatientName, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+                                    .addComponent(txtEncounterId))))
+                        .addGap(89, 89, 89))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtBloodPressure))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtHeartRate)
-                            .addComponent(txtEncounterDate)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18))
+                                .addComponent(txtHeartRate)
+                                .addGap(89, 89, 89))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(34, 34, 34)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtPatientName, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
-                            .addComponent(txtEncounterId))))
-                .addGap(89, 89, 89))
+                                .addComponent(txtEncounterDate, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(backBtn)
@@ -394,30 +400,31 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
                     .addComponent(txtEncounterId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtEncounterDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtHeartRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtBloodPressure, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTemperature, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtWeight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addGap(45, 45, 45)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(create)
-                    .addComponent(update))
-                .addContainerGap(414, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtHeartRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtBloodPressure, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtTemperature, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtWeight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7))
+                        .addGap(45, 45, 45)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(create)
+                            .addComponent(update)))
+                    .addComponent(txtEncounterDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(420, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -490,7 +497,7 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JTextField txtBloodPressure;
-    private javax.swing.JTextField txtEncounterDate;
+    private com.toedter.calendar.JDateChooser txtEncounterDate;
     private javax.swing.JTextField txtEncounterId;
     private javax.swing.JTextField txtHeartRate;
     private javax.swing.JTextField txtPatientName;

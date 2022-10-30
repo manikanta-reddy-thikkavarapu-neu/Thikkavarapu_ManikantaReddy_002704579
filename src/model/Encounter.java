@@ -4,13 +4,15 @@
  */
 package model;
 
+import java.util.Date;
+
 /**
  *
  * @author manikantareddythikkavarapu
  */
 public class Encounter {
     private String encounterId;
-    private String date;
+    private Date date;
     private String description;
     private VitalSigns vitalSigns;
 
@@ -22,11 +24,11 @@ public class Encounter {
         this.encounterId = encounterId;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

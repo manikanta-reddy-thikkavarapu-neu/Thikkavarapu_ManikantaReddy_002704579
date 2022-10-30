@@ -20,7 +20,7 @@ import model.VitalSigns;
 
 /**
  *
- * @author siddh
+ * @author manikantareddythikkavarapu
  */
 public class CreateHospitalPanel extends javax.swing.JPanel {
 

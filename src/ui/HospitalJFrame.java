@@ -16,7 +16,7 @@ import static ui.DoctorJFrame.doctorJFrame;
 
 /**
  *
- * @author siddh
+ * @author manikantareddythikkavarapu
  */
 public class HospitalJFrame extends javax.swing.JFrame {
 

@@ -6,6 +6,7 @@ package ui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -46,9 +47,8 @@ public class ViewDoctorPanel extends javax.swing.JPanel {
         if (jComboBox1.getSelectedItem() != null) {
             onChangeComboBox();
             getPatientData(jComboBox1.getSelectedItem().toString());
-        }
-        else {
-           JOptionPane.showMessageDialog(this, "No patients available to enter their encounter details");
+        } else {
+            JOptionPane.showMessageDialog(this, "No patients available to enter their encounter details");
         }
     }
 
@@ -87,11 +87,13 @@ public class ViewDoctorPanel extends javax.swing.JPanel {
 
         encounterList = patient.getEncounterHistory().getEncounters();
 
+        SimpleDateFormat sdf = new java.text.SimpleDateFormat("MMMM dd, yyyy");
+
         for (Encounter enc : encounterList) {
             Object[] row = new Object[7];
             row[0] = patient;
             row[1] = enc.getEncounterId();
-            row[2] = enc.getDate();
+            row[2] = sdf.format(enc.getDate());
             row[3] = enc.getVitalSigns().getHeartRate();
             row[4] = enc.getVitalSigns().getBloodPressure();
             row[5] = enc.getVitalSigns().getTemperature();
