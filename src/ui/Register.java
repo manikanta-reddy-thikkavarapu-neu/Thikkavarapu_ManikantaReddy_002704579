@@ -5,6 +5,8 @@
 package ui;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import model.House;
 import model.Patient;
@@ -17,13 +19,14 @@ import model.PersonDirectory;
  * @author manikantareddythikkavarapu
  */
 public class Register extends javax.swing.JPanel {
+
     private PersonDirectory personDirectory;
     private PatientDirectory patientDirectory;
-    
+
     /**
      * Creates new form Register
      */
-    public Register(PersonDirectory personDirectory,PatientDirectory patientDirectory) {
+    public Register(PersonDirectory personDirectory, PatientDirectory patientDirectory) {
         initComponents();
         this.personDirectory = personDirectory;
         this.patientDirectory = patientDirectory;
@@ -250,7 +253,7 @@ public class Register extends javax.swing.JPanel {
         // TODO add your handling code here:
         Person person = new Person();
         House house = new House();
-        
+
         String firstName = txtFName.getText();
         String lastName = txtLName.getText();
         String userName = txtUserName.getText();
@@ -264,47 +267,43 @@ public class Register extends javax.swing.JPanel {
         String personId = txtpersonId.getText();
         String assHospital = txtAssHospital.getText();
         String assCommunity = txtAssCommunity.getText();
-        String roleType = (String)cmbRole.getSelectedItem();
-        
-        if(firstName.isBlank() || lastName.isBlank() || userName.isBlank() || password.isBlank() ||
-           phoneNumber.isBlank() || personId.isBlank() || age.isBlank() || streetAddress.isBlank() || 
-                apartmentNumber.isBlank() || city.isBlank() || community.isBlank()){
+        String roleType = (String) cmbRole.getSelectedItem();
+
+        if (firstName.isBlank() || lastName.isBlank() || userName.isBlank() || password.isBlank()
+                || phoneNumber.isBlank() || personId.isBlank() || age.isBlank() || streetAddress.isBlank()
+                || apartmentNumber.isBlank() || city.isBlank() || community.isBlank()) {
             JOptionPane.showMessageDialog(this, "Please enter all details !");
             //clearAllFields();
             return;
         }
-        
-        if(validatePhoneNumber(phoneNumber)==null){
+
+        if (validatePhoneNumber(phoneNumber) == null) {
             JOptionPane.showMessageDialog(this, "Please enter a valid phone number !");
             return;
         }
-        
-        if(validateAge(age)==null){
+
+        if (validateAge(age) == null) {
             JOptionPane.showMessageDialog(this, "Please enter a valid age!");
             return;
         }
-        
-        if(validatePersonID(personId)==null){
+
+        if (validatePersonID(personId) == null) {
             JOptionPane.showMessageDialog(this, "Please enter a valid SSN!");
             return;
         }
-        
-       
-         if(txtAssHospital.getText().isEmpty() && roleType.equalsIgnoreCase("Hospital Admin")){
+
+        if (txtAssHospital.getText().isEmpty() && roleType.equalsIgnoreCase("Hospital Admin")) {
             JOptionPane.showMessageDialog(this, "Please enter a valid Hospital ID!");
             return;
         }
-         
-          if(txtAssCommunity.getText().isEmpty() && roleType.equalsIgnoreCase("Community Admin")){
+
+        if (txtAssCommunity.getText().isEmpty() && roleType.equalsIgnoreCase("Community Admin")) {
             JOptionPane.showMessageDialog(this, "Please enter a valid Community Name!");
             return;
         }
-        
-       
-        
-        for(Person p: personDirectory.getPersons()){
-            if(userName.equals(p.getUserName()))
-            {
+
+        for (Person p : personDirectory.getPersons()) {
+            if (userName.equals(p.getUserName())) {
                 JOptionPane.showMessageDialog(this, "Person already exists !");
                 return;
             }
@@ -312,7 +311,7 @@ public class Register extends javax.swing.JPanel {
         Integer a = validateAge(age);
         Long pn = validatePhoneNumber(phoneNumber);
         Long id = validatePersonID(personId);
-        
+
         person.setFirstName(firstName);
         person.setLastName(lastName);
         person.setUserName(userName);
@@ -323,18 +322,18 @@ public class Register extends javax.swing.JPanel {
         person.setAssCommunity(assCommunity);
         person.setAssHospital(assHospital);
         person.setPersonId(id);
-        
+
         house.setCity(city);
         house.setCountry("USA");
         house.setHouseNumber(apartmentNumber);
         house.setStreet(streetAddress);
         house.setCommunity(community);
-        
+
         person.setHouse(house);
         ArrayList<Person> persons = personDirectory.getPersons();
         persons.add(person);
         personDirectory.setPersons(persons);
-        
+
         Patient pa = new Patient();
 
         pa.setName(firstName + " " + lastName);
@@ -342,7 +341,7 @@ public class Register extends javax.swing.JPanel {
         if (person.getRoleType().equals("Patient")) {
             patientDirectory.addPatients(pa);
         }
-        
+
         JOptionPane.showMessageDialog(this, "Profile successfully added !");
         clearAllFields();
         System.out.println(personDirectory.getPersons().size());
@@ -350,13 +349,13 @@ public class Register extends javax.swing.JPanel {
 
     private void cmbRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRoleActionPerformed
         // TODO add your handling code here:
-        String roleType = (String)cmbRole.getSelectedItem();
-        if(roleType == "Hospital Admin"){
+        String roleType = (String) cmbRole.getSelectedItem();
+        if (roleType == "Hospital Admin") {
             txtAssHospital.setVisible(true);
             lblAssHospital.setVisible(true);
-             txtAssCommunity.setVisible(false);
+            txtAssCommunity.setVisible(false);
             lblAssCommunity.setVisible(false);
-        } else if(roleType == "Community Admin"){
+        } else if (roleType == "Community Admin") {
             txtAssCommunity.setVisible(true);
             lblAssCommunity.setVisible(true);
             txtAssHospital.setVisible(false);
@@ -369,40 +368,45 @@ public class Register extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_cmbRoleActionPerformed
 
-        private Integer validateAge(String age){
-        try{
+    private Integer validateAge(String age) {
+        try {
             return Integer.parseInt(age);
-        }
-        catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             System.out.println(e.getMessage());
             return null;
         }
     }
-        
-        private Long validatePhoneNumber(String phoneNumber) {
+
+    private Long validatePhoneNumber(String phoneNumber) {
         try {
-            if(phoneNumber.length() == 10)
+
+            String cellPhoneNumberRegex = "^\\d{10}$";
+
+            Pattern cellPhoneNumberPattern = Pattern.compile(cellPhoneNumberRegex);
+            Matcher cellPhoneNumberMatcher = cellPhoneNumberPattern.matcher(phoneNumber);
+
+            if (cellPhoneNumberMatcher.matches()) {
                 return Long.parseLong(phoneNumber);
-            else{
+            } else {
                 //JOptionPane.showMessageDialog(this, "Invalid Phone Number!");
                 return null;
             }
         } catch (NumberFormatException e) {
-             System.out.println(e.getMessage());
+            System.out.println(e.getMessage());
             return null;
         }
 
     }
-         private Long validatePersonID(String personId){
-        try{
+
+    private Long validatePersonID(String personId) {
+        try {
             return Long.parseLong(personId);
-        }
-        catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             System.out.println(e.getMessage());
             return null;
         }
     }
-         
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegister;
     private javax.swing.JComboBox<String> cmbRole;
@@ -450,8 +454,7 @@ public class Register extends javax.swing.JPanel {
         txtAssCommunity.setText("");
         txtAssHospital.setText("");
         txtpersonId.setText("");
-        
-    }
 
+    }
 
 }
