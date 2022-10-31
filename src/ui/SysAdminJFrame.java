@@ -66,6 +66,7 @@ public class SysAdminJFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 250, 250));
 
         btnHosAdmin.setText("HOSPITAL ADMIN");
         btnHosAdmin.addActionListener(new java.awt.event.ActionListener() {

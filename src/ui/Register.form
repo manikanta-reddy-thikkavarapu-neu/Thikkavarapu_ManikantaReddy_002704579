@@ -57,22 +57,22 @@
                               <Component id="txtpersonId" alignment="0" pref="177" max="32767" attributes="0"/>
                               <Component id="txtAssHospital" alignment="0" max="32767" attributes="0"/>
                               <Component id="txtAssCommunity" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txtAge" alignment="0" max="32767" attributes="0"/>
                               <Component id="cmbRole" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtAge" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <Component id="txtFName" alignment="1" min="-2" pref="177" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="307" max="-2" attributes="0"/>
-                      <Component id="btnRegister" min="-2" pref="96" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="287" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="295" max="-2" attributes="0"/>
                       <Component id="jLabel13" min="-2" pref="146" max="-2" attributes="0"/>
                   </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="331" max="-2" attributes="0"/>
+                      <Component id="btnRegister" min="-2" pref="96" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace pref="241" max="32767" attributes="0"/>
+              <EmptySpace pref="341" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -151,9 +151,9 @@
                   <Component id="lblAssHospital" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="txtAssHospital" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
               <Component id="btnRegister" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="147" max="32767" attributes="0"/>
+              <EmptySpace pref="252" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -223,7 +223,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Apartment Number"/>
+        <Property name="text" type="java.lang.String" value="Apartment"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtStreetAddress">

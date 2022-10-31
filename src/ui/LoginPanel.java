@@ -19,13 +19,12 @@ import model.PersonDirectory;
  * @author manikantareddythikkavarapu
  */
 public class LoginPanel extends javax.swing.JPanel {
-
     private PersonDirectory personDirectory;
     private CommunityDirectory communityDirectory;
     private DoctorDirectory doctorDirectory;
     private HospitalDirectory hospitalDirectory;
     private PatientDirectory patientDirectory;
-
+    
     /**
      * Creates new form LoginPanel
      */
@@ -118,8 +117,8 @@ public class LoginPanel extends javax.swing.JPanel {
         String userName = txtEUserName.getText();
         String password = txtEPassword.getText();
         ArrayList<Person> list = personDirectory.getPersons();
-
-        if (userName.isEmpty() || password.isEmpty()) {
+        
+         if (userName.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter all the details !!");
         } else {
             if (list.isEmpty()) {
@@ -129,7 +128,7 @@ public class LoginPanel extends javax.swing.JPanel {
                 for (Person temp : list) {
                     if (userName.equalsIgnoreCase(temp.getUserName()) && password.equalsIgnoreCase(temp.getPassword())) {
                         if (temp.getRoleType().equalsIgnoreCase("Patient")) {
-                            PatientJFrame patientFrame = new PatientJFrame(temp);
+                            PatientJFrame patientFrame = new PatientJFrame(temp,hospitalDirectory,doctorDirectory,communityDirectory);
                             patientFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
                             patientFrame.setVisible(true);
                             new PatientJFrame(patientFrame);
@@ -139,7 +138,7 @@ public class LoginPanel extends javax.swing.JPanel {
                             doctor.setVisible(true);
                             new DoctorJFrame(doctor);
                         } else if (temp.getRoleType().equalsIgnoreCase("Hospital Admin")) {
-                            HospitalJFrame hospitalFrame = new HospitalJFrame(temp, doctorDirectory, personDirectory, hospitalDirectory);
+                            HospitalJFrame hospitalFrame = new HospitalJFrame(temp, doctorDirectory, personDirectory,hospitalDirectory);
                             hospitalFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
                             hospitalFrame.setVisible(true);
                             new HospitalJFrame(hospitalFrame);
@@ -158,6 +157,8 @@ public class LoginPanel extends javax.swing.JPanel {
                 }
             }
         }
+                        
+//                JOptionPane.showMessageDialog(this, "Invalid User");
     }//GEN-LAST:event_btnLoginUserActionPerformed
 
 

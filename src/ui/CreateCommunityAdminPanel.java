@@ -155,6 +155,8 @@ public class CreateCommunityAdminPanel extends javax.swing.JPanel {
         btnBack = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 250, 250));
+
         jLabel1.setText("Community Name");
 
         jLabel2.setText("Hospital ID");
@@ -185,7 +187,6 @@ public class CreateCommunityAdminPanel extends javax.swing.JPanel {
         });
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel5.setText("DETAILS");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -247,7 +248,7 @@ public class CreateCommunityAdminPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCreate)
                     .addComponent(btnUpdate))
-                .addContainerGap(488, Short.MAX_VALUE))
+                .addContainerGap(505, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

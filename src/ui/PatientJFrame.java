@@ -23,45 +23,43 @@ import static ui.DoctorJFrame.doctorJFrame;
  * @author manikantareddythikkavarapu
  */
 public class PatientJFrame extends javax.swing.JFrame {
+
     /**
      * Creates new form PatientJFrame
      */
-    
-     CommunityDirectory communityDirectory;
-     DoctorDirectory doctorDirectory;
-     HospitalDirectory hospitalDirectory;
-     Person person;
-     static PatientJFrame patientJFrame;
-    
+    DoctorDirectory doctorDirectory;
+    HospitalDirectory hospitalDirectory;
+    Person person;
+    CommunityDirectory communityDirectory;
+    static PatientJFrame patientJFrame;
+
     public PatientJFrame() {
         initComponents();
-        
+
     }
-    
+
     public PatientJFrame(PatientJFrame patientJFrame) {
         this.patientJFrame = patientJFrame;
     }
-    
-    public PatientJFrame(Person temp) {
+
+    public PatientJFrame(Person temp, HospitalDirectory hospitalDirectory, DoctorDirectory doctorDirectory, CommunityDirectory communityDirectory) {
         initComponents();
-        
-        this.communityDirectory = new CommunityDirectory();
-        this.doctorDirectory = new DoctorDirectory();
-        this.hospitalDirectory = new HospitalDirectory();
+        this.communityDirectory = communityDirectory;
+        this.doctorDirectory = doctorDirectory;
+        this.hospitalDirectory = hospitalDirectory;
         this.person = temp;
 
         String firstName = temp.getFirstName();
         String lastName = temp.getLastName();
         lblDFLName.setText(firstName + " " + lastName);
-        
+
         String community = temp.getHouse().getCommunity();
         lblCommunity.setText(community);
         fillCMBHospital(temp);
         onChangeComboBox();
-        
-        
+
     }
-    
+
     public void onChangeComboBox() {
         cmbChooseHospital.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -71,51 +69,53 @@ public class PatientJFrame extends javax.swing.JFrame {
                 model.setRowCount(0);
 
                 String community = person.getHouse().getCommunity();
-                ArrayList<Community> list = communityDirectory.getCommunities();
-                for (Community com : list) {
-                    if (com.getName().equals(community)) {
-                        HospitalDirectory hd = com.getHospitalDirectory();
 
-                        ArrayList<Hospital> hospitals = hd.getHospitals();
-                        for (Hospital hospital : hospitals) {
-                            String selectedHospital = (String) cmbChooseHospital.getSelectedItem();
-                            if (selectedHospital.equals(hospital.getHospitalName())) {
-                               // tableHospital = hospital;
-                                DoctorDirectory tabDoc = hospital.getDoctorDirectory();
-                                for (Doctor doctor : tabDoc.getDoctors()) {
-                                    Object[] row = new Object[4];
+                ArrayList<Hospital> hospitalList = new ArrayList<>();
+                ArrayList<Doctor> doctorList = new ArrayList<>();
 
-                                    row[0] = doctor.getDoctorID();
-                                    row[1] = doctor.getDoctorFName();
-                                    row[2] = doctor.getDoctorLName();
-                                    row[3] = doctor.getSpecialisation();
-
-                                    model.addRow(row);
-                                }
-                            }
-                        }
+                for (Hospital hosp : hospitalDirectory.getHospitals()) {
+                    if (hosp.getCommunity().equalsIgnoreCase(community)) {
+                        hospitalList.add(hosp);
                     }
                 }
+
+                String selectedHospital = (String) cmbChooseHospital.getSelectedItem();
+                for (Hospital hos : hospitalList) {
+                    if (selectedHospital.equals(hos.getHospitalName())) {
+                        for (Doctor doc : doctorDirectory.getDoctors()) {
+                            if (doc.getHospitalName().equalsIgnoreCase(selectedHospital)) {
+                                doctorList.add(doc);
+                            }
+                        }
+                        for (Doctor doctor : doctorList) {
+                            Object[] row = new Object[4];
+
+                            row[0] = doctor.getDoctorID();
+                            row[1] = doctor.getDoctorFName();
+                            row[2] = doctor.getDoctorLName();
+                            row[3] = doctor.getSpecialisation();
+
+                            model.addRow(row);
+                        }
+                        break;
+                    }
+                }
+
             }
-        });
+        }
+        );
     }
-    
-    
-    public void fillCMBHospital(Person temp){
+
+    public void fillCMBHospital(Person temp) {
         String community = temp.getHouse().getCommunity();
-        ArrayList<Community> list = communityDirectory.getCommunities();
-        for(Community com: list) {
-            if(com.getName().equals(community)) {
-               HospitalDirectory hd = com.getHospitalDirectory();
-               
-               ArrayList<Hospital> hospitals = hd.getHospitals();
-               for(Hospital hospital : hospitals){
-                   cmbChooseHospital.addItem(hospital.getHospitalName());
-               }
+        ArrayList<Hospital> hospitalList = new ArrayList<>();
+        for (Hospital hosp : hospitalDirectory.getHospitals()) {
+            if (hosp.getCommunity().equalsIgnoreCase(community)) {
+                hospitalList.add(hosp);
+                cmbChooseHospital.addItem(hosp.getHospitalName());
             }
         }
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -139,6 +139,7 @@ public class PatientJFrame extends javax.swing.JFrame {
         btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 250, 250));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel1.setText("PATIENT PAGE :");
@@ -208,7 +209,7 @@ public class PatientJFrame extends javax.swing.JFrame {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(310, 310, 310)
+                        .addGap(280, 280, 280)
                         .addComponent(btnBack)))
                 .addContainerGap(55, Short.MAX_VALUE))
         );
@@ -233,9 +234,9 @@ public class PatientJFrame extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(39, 39, 39)
                 .addComponent(btnBack)
-                .addGap(63, 63, 63))
+                .addGap(42, 42, 42))
         );
 
         pack();
@@ -260,16 +261,24 @@ public class PatientJFrame extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PatientJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PatientJFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PatientJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PatientJFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PatientJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PatientJFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PatientJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PatientJFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -294,6 +303,5 @@ public class PatientJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel lblDFLName;
     private javax.swing.JTable tblDoctor;
     // End of variables declaration//GEN-END:variables
-
 
 }

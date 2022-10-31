@@ -123,9 +123,11 @@ public class ViewDoctorPanel extends javax.swing.JPanel {
         view = new javax.swing.JButton();
         delete = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 250, 250));
+
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Doctor Admin");
+        jLabel1.setText("DOCTOR ADMIN DETAILS :");
 
         jLabel2.setText("Doctor name :");
 

@@ -88,8 +88,9 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
 
         boolean proceed = false;
 
+        int index = 0;
+
         for (Patient pa : patientDirectory.getPatients()) {
-            int index = 0;
             if (pa.getName().equals(patientName)) {
                 pa.getEncounterHistory().addEncounters(enc);
                 patientDirectory.updatePatients(pa, index);
@@ -278,6 +279,8 @@ public class CreateDoctorPanel extends javax.swing.JPanel {
         update = new javax.swing.JButton();
         backBtn = new javax.swing.JButton();
         txtEncounterDate = new com.toedter.calendar.JDateChooser();
+
+        setBackground(new java.awt.Color(255, 250, 250));
 
         jLabel1.setText("Patient Name");
 
