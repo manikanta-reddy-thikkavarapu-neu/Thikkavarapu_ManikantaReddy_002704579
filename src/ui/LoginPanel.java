@@ -5,6 +5,7 @@
 package ui;
 
 import java.util.ArrayList;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.CommunityDirectory;
 import model.DoctorDirectory;
@@ -54,7 +55,7 @@ public class LoginPanel extends javax.swing.JPanel {
         txtEPassword = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(204, 255, 255));
+        setBackground(new java.awt.Color(255, 250, 250));
 
         btnLoginUser.setText("LOGIN USER");
         btnLoginUser.addActionListener(new java.awt.event.ActionListener() {
@@ -129,18 +130,22 @@ public class LoginPanel extends javax.swing.JPanel {
                     if (userName.equalsIgnoreCase(temp.getUserName()) && password.equalsIgnoreCase(temp.getPassword())) {
                         if (temp.getRoleType().equalsIgnoreCase("Patient")) {
                             PatientJFrame patientFrame = new PatientJFrame(temp);
+                            patientFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
                             patientFrame.setVisible(true);
                             new PatientJFrame(patientFrame);
                         } else if (temp.getRoleType().equalsIgnoreCase("Doctor")) {
                             DoctorJFrame doctor = new DoctorJFrame(temp, patientDirectory, personDirectory);
+                            doctor.setExtendedState(JFrame.MAXIMIZED_BOTH);
                             doctor.setVisible(true);
                             new DoctorJFrame(doctor);
                         } else if (temp.getRoleType().equalsIgnoreCase("Hospital Admin")) {
                             HospitalJFrame hospitalFrame = new HospitalJFrame(temp, doctorDirectory, personDirectory, hospitalDirectory);
+                            hospitalFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
                             hospitalFrame.setVisible(true);
                             new HospitalJFrame(hospitalFrame);
                         } else if (temp.getRoleType().equalsIgnoreCase("Community Admin")) {
                             CommunityAdminJFrame communityadminFrame = new CommunityAdminJFrame(temp, hospitalDirectory, personDirectory, communityDirectory);
+                            communityadminFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
                             communityadminFrame.setVisible(true);
                             new CommunityAdminJFrame(communityadminFrame);
                         }

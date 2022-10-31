@@ -19,13 +19,14 @@ import model.PersonDirectory;
  * @author manikantareddythikkavarapu
  */
 public class MainFrame extends javax.swing.JFrame {
+
     private static PersonDirectory personDirectory;
     static Person person;
     static PatientDirectory patientDirectory;
     static HospitalDirectory hospitalDirectory;
     static CommunityDirectory communityDirectory;
     static DoctorDirectory doctorDirectory;
-    
+
     //private SysAdminJFrame sysadminJFrame;
     /**
      * Creates new form MainFrame
@@ -38,19 +39,19 @@ public class MainFrame extends javax.swing.JFrame {
         doctorDirectory = new DoctorDirectory();
         communityDirectory = new CommunityDirectory();
     }
-    
+
     public static void persistPatientData(PatientDirectory patientDirectory) {
         patientDirectory = patientDirectory;
     }
-    
+
     public static void persistHospitalData(HospitalDirectory hospitalDirectory) {
         hospitalDirectory = hospitalDirectory;
     }
-    
+
     public static void persistCommunityData(CommunityDirectory communityDirectory) {
         communityDirectory = communityDirectory;
     }
-    
+
     public static void persistDoctorData(DoctorDirectory doctorDirectory) {
         doctorDirectory = doctorDirectory;
     }
@@ -75,7 +76,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        controlPanel.setBackground(new java.awt.Color(255, 204, 204));
+        controlPanel.setBackground(new java.awt.Color(255, 250, 250));
 
         btnRegister.setText("REGISTER");
         btnRegister.addActionListener(new java.awt.event.ActionListener() {
@@ -124,10 +125,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         SplitPane.setLeftComponent(controlPanel);
 
-        workArea.setBackground(new java.awt.Color(204, 255, 255));
+        workArea.setBackground(new java.awt.Color(255, 250, 250));
         workArea.setPreferredSize(new java.awt.Dimension(800, 800));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\siddh\\OneDrive\\Desktop\\AED2 Images\\Healthcare_AED2.jpg")); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel2.setText("WELCOME TO MEDICAL RESOURCE MANAGER");
@@ -179,17 +178,17 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-        LoginPanel loginPanel = new LoginPanel(personDirectory, patientDirectory, hospitalDirectory, doctorDirectory, 
-        communityDirectory);
+        LoginPanel loginPanel = new LoginPanel(personDirectory, patientDirectory, hospitalDirectory, doctorDirectory,
+                communityDirectory);
         SplitPane.setRightComponent(loginPanel);
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnSystemAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSystemAdminActionPerformed
         // TODO add your handling code here:
-        SysAdminJFrame sysAdminFrame = new SysAdminJFrame(communityDirectory, hospitalDirectory,doctorDirectory,
-     person, personDirectory);
-        sysAdminFrame.setVisible(true);
+        SysAdminJFrame sysAdminFrame = new SysAdminJFrame(communityDirectory, hospitalDirectory, doctorDirectory,
+                person, personDirectory);
         sysAdminFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        sysAdminFrame.setVisible(true);
         new SysAdminJFrame(sysAdminFrame);
     }//GEN-LAST:event_btnSystemAdminActionPerformed
 
