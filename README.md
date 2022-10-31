@@ -16,8 +16,8 @@
 
 Please find below the Class Diagram of this application delineating the different interconnected classes and their objects built for this application:
 
-![Class Diagram]()
+![Class Diagram](https://github.com/manikanta-reddy-thikkavarapu-neu/Thikkavarapu_ManikantaReddy_002704579/blob/assignment_2/class_sequence_diagrams/Class%20Diagram%20AED.jpeg)
 
 Please find below the Sequence Diagram of this application explaining how the different components interact with each other.
 
-![Sequence Diagram]()
+![Sequence Diagram](https://github.com/manikanta-reddy-thikkavarapu-neu/Thikkavarapu_ManikantaReddy_002704579/blob/assignment_2/class_sequence_diagrams/Sequence%20AED.jpeg)
