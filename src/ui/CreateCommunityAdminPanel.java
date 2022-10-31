@@ -216,14 +216,16 @@ public class CreateCommunityAdminPanel extends javax.swing.JPanel {
                                 .addComponent(btnUpdate))
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(127, 127, 127)
+                        .addContainerGap()
                         .addComponent(btnBack)))
                 .addContainerGap(65, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(46, 46, 46)
+                .addGap(11, 11, 11)
+                .addComponent(btnBack)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5)
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -245,9 +247,7 @@ public class CreateCommunityAdminPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCreate)
                     .addComponent(btnUpdate))
-                .addGap(18, 18, 18)
-                .addComponent(btnBack)
-                .addContainerGap(447, Short.MAX_VALUE))
+                .addContainerGap(488, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

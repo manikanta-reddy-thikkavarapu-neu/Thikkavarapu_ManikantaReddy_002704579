@@ -79,6 +79,8 @@ public class DoctorJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        doctorControlPanel.setBackground(new java.awt.Color(255, 250, 250));
+
         javax.swing.GroupLayout doctorControlPanelLayout = new javax.swing.GroupLayout(doctorControlPanel);
         doctorControlPanel.setLayout(doctorControlPanelLayout);
         doctorControlPanelLayout.setHorizontalGroup(
@@ -91,6 +93,8 @@ public class DoctorJFrame extends javax.swing.JFrame {
         );
 
         doctorSplitPane.setLeftComponent(doctorControlPanel);
+
+        doctorDataHistoryPanel.setBackground(new java.awt.Color(255, 250, 250));
 
         javax.swing.GroupLayout doctorDataHistoryPanelLayout = new javax.swing.GroupLayout(doctorDataHistoryPanel);
         doctorDataHistoryPanel.setLayout(doctorDataHistoryPanelLayout);

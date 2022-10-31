@@ -111,6 +111,8 @@ public class SysAdminCreateCommunityPanel extends javax.swing.JPanel {
         updateBtn = new javax.swing.JButton();
         backBtn = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 250, 250));
+
         jLabel1.setText("Community Id");
 
         jLabel2.setText("Community Name");
